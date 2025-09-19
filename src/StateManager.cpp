@@ -2,7 +2,7 @@
 
 void MainLoop()
 {
-	usingRaylib = true;
+	usingRaylib = false;
 
 	//Initialization
 	paddle::Paddle paddle;
@@ -16,7 +16,6 @@ void MainLoop()
 	while (!WindowClosed())
 	{
 		UpdateDeltaTime();
-		block::InitTextures(block);
 
 		//Inputs
 
@@ -52,6 +51,8 @@ void MainLoop()
 
 void Initializers(block::Block block[maxRows][maxCols])
 {
+	InitializeWindow(screenWidth, screenHeight, "Breakout");
+
 	for (int row = 0; row < maxRows; row++)
 	{
 		for (int col = 0; col < maxCols; col++)
@@ -62,10 +63,20 @@ void Initializers(block::Block block[maxRows][maxCols])
 			block[row][col].posX += (col - ((float)maxCols / 2)) * 100.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
 
 			block[row][col].posY = row * block[row][col].height * 2 + block[row][col].height;
+
+			if (usingRaylib)
+			{
+				block[row][col].texture = LoadTexture(block[row][col].currentTexture.c_str());
+
+				block[row][col].texture.width = block[row][col].width / 2 * screenWidth / 100;
+				block[row][col].texture.height = block[row][col].height * screenHeight / 100;
+			}
+			else
+			{
+				block[row][col].currentTextureID = slLoadTexture(block[row][col].currentTexture.c_str());
+			}
 		}
 	}
-	InitializeWindow(screenWidth, screenHeight, "Breakout");
-
 }
 
 void UpdateDeltaTime()

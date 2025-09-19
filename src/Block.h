@@ -17,6 +17,7 @@ namespace block
 		Color color = RED;
 
 		std::string currentTexture = "res/Brick_Texture_Default.png";
+		int currentTextureID = 0;
 
 		Texture texture;
 
@@ -24,5 +25,5 @@ namespace block
 	};
 
 	void Draw(Block& block);
-	void InitTextures(Block block[maxRows][maxCols]);
+	void UpdateTextures(Block& block);
 }

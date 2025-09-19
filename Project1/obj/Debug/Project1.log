@@ -1,0 +1,6 @@
+﻿  Ball.cpp
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\Ball.cpp(7,51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\Ball.cpp(8,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\Ball.cpp(93,24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\Ball.cpp(94,24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Project1.vcxproj -> C:\Users\Eluney\Downloads\Project1\Project1\bin\Debug\Project1.exe

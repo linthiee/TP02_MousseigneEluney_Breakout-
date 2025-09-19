@@ -1,0 +1,10 @@
+﻿  StateManager.cpp
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\StateManager.cpp(58,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\StateManager.cpp(61,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Eluney\Downloads\Project1\Project1\Project1\StateManager.cpp(80,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  1 of 82 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Project1.vcxproj -> C:\Users\Eluney\Downloads\Project1\Project1\bin\Release\Project1.exe

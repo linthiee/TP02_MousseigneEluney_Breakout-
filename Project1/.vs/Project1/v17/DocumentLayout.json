@@ -1,0 +1,230 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\StateManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Ball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Globals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Draw.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Paddle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Block.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Paddle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Globals.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\StateManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Draw.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5D664E8-4DDB-4CF6-AA11-E340C59F3BD2}|Project1\\Project1.vcxproj|solutionrelative:Project1\\Block.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 289,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Ball.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.cpp",
+              "RelativeDocumentMoniker": "Project1\\Ball.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.cpp",
+              "RelativeToolTip": "Project1\\Ball.cpp",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAF8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-15T04:30:17.56Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Draw.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.cpp",
+              "RelativeDocumentMoniker": "Project1\\Draw.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.cpp",
+              "RelativeToolTip": "Project1\\Draw.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-14T03:32:56.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Globals.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.cpp",
+              "RelativeDocumentMoniker": "Project1\\Globals.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.cpp",
+              "RelativeToolTip": "Project1\\Globals.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-14T03:55:20.426Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StateManager.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.cpp",
+              "RelativeDocumentMoniker": "Project1\\StateManager.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.cpp",
+              "RelativeToolTip": "Project1\\StateManager.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-14T03:33:21.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Block.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.cpp",
+              "RelativeDocumentMoniker": "Project1\\Block.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.cpp",
+              "RelativeToolTip": "Project1\\Block.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-14T05:54:25.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Paddle.cpp",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.cpp",
+              "RelativeDocumentMoniker": "Project1\\Paddle.cpp",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.cpp",
+              "RelativeToolTip": "Project1\\Paddle.cpp",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-14T04:41:43.784Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 173,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Ball.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.h",
+              "RelativeDocumentMoniker": "Project1\\Ball.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Ball.h",
+              "RelativeToolTip": "Project1\\Ball.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-15T04:28:47.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Globals.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.h",
+              "RelativeDocumentMoniker": "Project1\\Globals.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Globals.h",
+              "RelativeToolTip": "Project1\\Globals.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-14T03:54:40.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Paddle.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.h",
+              "RelativeDocumentMoniker": "Project1\\Paddle.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Paddle.h",
+              "RelativeToolTip": "Project1\\Paddle.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-14T03:40:41.783Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Block.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.h",
+              "RelativeDocumentMoniker": "Project1\\Block.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Block.h",
+              "RelativeToolTip": "Project1\\Block.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-14T03:39:03.224Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "StateManager.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.h",
+              "RelativeDocumentMoniker": "Project1\\StateManager.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\StateManager.h",
+              "RelativeToolTip": "Project1\\StateManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-14T03:33:15.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Draw.h",
+              "DocumentMoniker": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.h",
+              "RelativeDocumentMoniker": "Project1\\Draw.h",
+              "ToolTip": "C:\\Users\\Eluney\\Downloads\\Project1\\Project1\\Project1\\Draw.h",
+              "RelativeToolTip": "Project1\\Draw.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-14T00:56:29.803Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

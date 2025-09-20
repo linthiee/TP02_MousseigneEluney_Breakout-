@@ -2,6 +2,7 @@
 
 void MainLoop()
 {
+	srand (time(nullptr));
 	usingRaylib = false;
 
 	//Initialization
@@ -20,27 +21,32 @@ void MainLoop()
 		//Inputs
 
 		paddle::Movement(paddle);
+		ball::ShootBall(ball, paddle);
 
 		//Update
 
 		screenWidth = ScreenWidth();
 		screenHeight = ScreenHeight();
 
+		ball::Movement(ball);
+
 		//Draw
 
 		StartDrawing();
+
+		DrawBackground();
 
 		for (int row = 0; row < maxRows; row++)
 		{
 			for (int col = 0; col < maxCols; col++)
 			{
-				block[row]->color = colors[row];
+				block[row][col].color = colors[row];
 				block::Draw(block[row][col]);
 			}
 		}
 
 		paddle::Draw(paddle);
-		ball::Draw(ball, paddle);
+		ball::Draw(ball);
 
 		FinishDrawing();
 	}
@@ -68,14 +74,34 @@ void Initializers(block::Block block[maxRows][maxCols])
 			{
 				block[row][col].texture = LoadTexture(block[row][col].currentTexture.c_str());
 
-				block[row][col].texture.width = block[row][col].width / 2 * screenWidth / 100;
+				block[row][col].texture.width = block[row][col].width * screenWidth / 100;
 				block[row][col].texture.height = block[row][col].height * screenHeight / 100;
+
+				backgroundTexture = LoadTexture(background.c_str());
+
+				backgroundTexture.width = screenWidth;
+				backgroundTexture.height = screenHeight;
 			}
 			else
 			{
 				block[row][col].currentTextureID = slLoadTexture(block[row][col].currentTexture.c_str());
+
+				background = "res/Background_Sigil.png";
+				backgroundTextureID = slLoadTexture(background.c_str());
 			}
 		}
+	}
+}
+
+void DrawBackground()
+{
+	if (usingRaylib)
+	{
+		DrawTexture(backgroundTexture, 0, 0, WHITE);
+	}
+	else
+	{
+		slSprite(backgroundTextureID,  screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
 	}
 }
 
@@ -120,7 +146,6 @@ void InitializeWindow(int screenWidth, int screenHeight, std::string title)
 
 	if (usingRaylib)
 	{
-		SetWindowState(FLAG_WINDOW_RESIZABLE);
 		InitWindow(screenWidth, screenHeight, title.c_str());
 
 	}

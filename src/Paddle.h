@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Raylib.h"
 #include "Globals.h"
 
@@ -18,6 +19,7 @@ namespace paddle
 
 		Key keyLeft = Key::LEFT_KEY;
 		Key keyRight = Key::RIGHT_KEY;
+		Key keyUp = Key::UP_KEY;
 	};
 
 	void Draw(Paddle& paddle);

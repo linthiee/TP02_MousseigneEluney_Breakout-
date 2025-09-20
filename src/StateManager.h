@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <iostream>
 #include "Draw.h"
 #include "Globals.h"
 #include "Paddle.h"
@@ -11,6 +10,8 @@
 void MainLoop();
 
 void Initializers(block::Block block[maxRows][maxCols]);
+
+void DrawBackground();
 
 void UpdateDeltaTime();
 

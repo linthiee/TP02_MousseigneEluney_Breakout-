@@ -2,7 +2,7 @@
 
 void MainLoop()
 {
-	srand (time(nullptr));
+	srand(time(nullptr));
 	usingRaylib = false;
 
 	//Initialization
@@ -30,6 +30,31 @@ void MainLoop()
 
 		ball::Movement(ball);
 
+
+		for (int row = 0; row < maxRows; row++)
+		{
+			for (int col = 0; col < maxCols; col++)
+			{
+				if (CheckCollisions(block[row][col], ball))
+				{
+					if (ball.posX - ball.radius < block[row][col].posX + block[row][col].width)
+					{
+						ball.posX = block[row][col].posX + ball.radius + block[row][col].width;
+						ball.posY = (float)ball.posY;
+					}
+				}
+				else
+				{
+					if (ball.posX + ball.radius > block[row][col].posX)
+					{
+						ball.posX = block[row][col].posX - ball.radius;
+						ball.posY = ball.posY;
+					}
+				}
+
+				//UpdateMovement(ball);
+			}
+		}
 		//Draw
 
 		StartDrawing();
@@ -65,8 +90,8 @@ void Initializers(block::Block block[maxRows][maxCols])
 		{
 			block[row][col].width = 100.0f * ((float)screenWidth / ((float)maxCols + 1.0f)) / (float)screenWidth;
 
-			block[row][col].posX = 50 + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
-			block[row][col].posX += (col - ((float)maxCols / 2)) * 100.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
+			block[row][col].posX = 49.5f + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
+			block[row][col].posX += (col - ((float)maxCols / 2)) * 90.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
 
 			block[row][col].posY = row * block[row][col].height * 2 + block[row][col].height;
 
@@ -101,7 +126,7 @@ void DrawBackground()
 	}
 	else
 	{
-		slSprite(backgroundTextureID,  screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
+		slSprite(backgroundTextureID, screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
 	}
 }
 

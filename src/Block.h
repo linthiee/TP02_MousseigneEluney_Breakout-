@@ -2,6 +2,7 @@
 #include <string>
 #include "Raylib.h"
 #include "Draw.h"
+#include "Ball.h"
 
 namespace block
 {
@@ -24,5 +25,8 @@ namespace block
 	};
 
 	void Draw(Block& block);
+
+    bool CheckCollisions(Block& block, ball::Ball ball);
+
 	void UpdateTextures(Block& block);
 }

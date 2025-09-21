@@ -103,33 +103,51 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 			}
 		}
 		ball.firstShoot = false;
+		ball.idle = false;
 	}
 }
 
 void ball::Movement(Ball& ball)
 {
-	ball.posX += ball.velocityX * ball.speed * deltaT;
-	ball.posY += ball.velocityY * ball.speed * deltaT;
+	if (!ball.idle)
+	{
+		ball.posX += ball.velocityX * ball.speed * deltaT;
+		ball.posY += ball.velocityY * ball.speed * deltaT;
 
-	if (ball.posX + (ball.radius / 100) > 100)
-	{
-		ball.posX = 100 - (ball.radius / 100);
-		ball.velocityX *= -1;
-	}
-	if (ball.posX - (ball.radius / 100) < 0)
-	{
-		ball.posX = ball.radius / 100;
-		ball.velocityX *= -1;
-	}
+		if (ball.posX + (ball.radius / 100) > 100)
+		{
+			ball.posX = 100 - (ball.radius / 100);
+			ball.velocityX *= -1;
+		}
+		if (ball.posX - (ball.radius / 100) < 0)
+		{
+			ball.posX = ball.radius / 100;
+			ball.velocityX *= -1;
+		}
 
-	if (ball.posY + (ball.radius / 100) > 100.0f)
-	{
-		ball.posY = 100 - (ball.radius / 100);
-		ball.velocityY *= -1;
-	}
-	if (ball.posY - (ball.radius / 100) < 0)
-	{
-		ball.posY = (ball.radius / 100);
-		ball.velocityY *= -1;
+		if (ball.posY + (ball.radius / 100) > 100.0f)
+		{
+			ball.posY = 100 - (ball.radius / 100);
+			ball.velocityY *= -1;
+		}
+		if (ball.posY - (ball.radius / 100) < 0)
+		{
+			ball.posY = (ball.radius / 100);
+			ball.velocityY *= -1;
+		}
 	}
 }
+
+//void ball::UpdateMovement(Ball& ball)
+//{
+//	if (usingRaylib)
+//	{
+//
+//
+//
+//	}
+//	else
+//	{
+//
+//	}
+//}

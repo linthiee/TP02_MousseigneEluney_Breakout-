@@ -9,6 +9,8 @@ namespace ball
 	{
 		float radius = 7.0f;
 
+		bool idle = true;
+
 		float posX = 0.0f;
 		float posY = 0.0f;
 
@@ -20,10 +22,10 @@ namespace ball
 		bool firstShoot = true;
 
 		Color color = WHITE;
-
 	};
 
 	void Draw(Ball ball);
     void ShootBall(Ball& ball, paddle::Paddle& paddle);
 	void Movement(Ball& ball);
+	//void UpdateMovement(Ball& ball);
 }

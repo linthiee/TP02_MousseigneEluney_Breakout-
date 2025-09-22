@@ -10,9 +10,9 @@ void MainLoop()
 	ball::Ball ball;
 	block::Block block[maxRows][maxCols];
 
-	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE };
+	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE};
 
-	Initializers(block);
+	Initializers(block,ball,paddle);
 
 	while (!WindowClosed())
 	{
@@ -30,31 +30,26 @@ void MainLoop()
 
 		ball::Movement(ball);
 
+		if (CheckCollisions(paddle, ball))
+		{
+			ball::CollidedPaddle(paddle, ball);
+		}
 
 		for (int row = 0; row < maxRows; row++)
 		{
 			for (int col = 0; col < maxCols; col++)
 			{
-				if (CheckCollisions(block[row][col], ball))
+				if (block[row][col].durability > 0)
 				{
-					if (ball.posX - ball.radius < block[row][col].posX + block[row][col].width)
+					if (CheckCollisions(block[row][col], ball))
 					{
-						ball.posX = block[row][col].posX + ball.radius + block[row][col].width;
-						ball.posY = (float)ball.posY;
+						UpdateDurability(block[row][col]);
+						UpdateMovement(ball, block[row][col]);
 					}
 				}
-				else
-				{
-					if (ball.posX + ball.radius > block[row][col].posX)
-					{
-						ball.posX = block[row][col].posX - ball.radius;
-						ball.posY = ball.posY;
-					}
-				}
-
-				//UpdateMovement(ball);
 			}
 		}
+
 		//Draw
 
 		StartDrawing();
@@ -65,8 +60,11 @@ void MainLoop()
 		{
 			for (int col = 0; col < maxCols; col++)
 			{
-				block[row][col].color = colors[row];
-				block::Draw(block[row][col]);
+				if (block[row][col].durability > 0)
+				{
+					block[row][col].color = colors[row];
+					block::Draw(block[row][col]);
+				}
 			}
 		}
 
@@ -80,9 +78,35 @@ void MainLoop()
 
 }
 
-void Initializers(block::Block block[maxRows][maxCols])
+void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle::Paddle& paddle)
 {
 	InitializeWindow(screenWidth, screenHeight, "Breakout");
+
+	Texture tempTexture;
+
+	if (usingRaylib)
+	{
+		tempTexture = LoadTexture(background.c_str());
+		backgroundTextureID = tempTexture.id;
+
+		tempTexture = LoadTexture(blockNormalTexture.c_str());
+		blockNormalTextureID = tempTexture.id;
+
+		tempTexture = LoadTexture(ballNormalTexture.c_str());
+		ballNormalTextureID = tempTexture.id;
+	}
+	else
+	{
+		background = "res/Background_Sigil.png";
+		backgroundTextureID = slLoadTexture(background.c_str());
+
+		blockNormalTextureID = slLoadTexture(blockNormalTexture.c_str());
+
+		ballNormalTextureID = slLoadTexture(ballNormalTexture.c_str());
+	}
+
+	ball.currentTextureID = ballNormalTextureID;
+	
 
 	for (int row = 0; row < maxRows; row++)
 	{
@@ -93,41 +117,17 @@ void Initializers(block::Block block[maxRows][maxCols])
 			block[row][col].posX = 49.5f + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
 			block[row][col].posX += (col - ((float)maxCols / 2)) * 90.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
 
-			block[row][col].posY = row * block[row][col].height * 2 + block[row][col].height;
+			block[row][col].posY = row * block[row][col].height * 3 + 5 * block[row][col].height;
 
-			if (usingRaylib)
-			{
-				block[row][col].texture = LoadTexture(block[row][col].currentTexture.c_str());
+			block[row][col].currentTextureID = blockNormalTextureID;
 
-				block[row][col].texture.width = block[row][col].width * screenWidth / 100;
-				block[row][col].texture.height = block[row][col].height * screenHeight / 100;
-
-				backgroundTexture = LoadTexture(background.c_str());
-
-				backgroundTexture.width = screenWidth;
-				backgroundTexture.height = screenHeight;
-			}
-			else
-			{
-				block[row][col].currentTextureID = slLoadTexture(block[row][col].currentTexture.c_str());
-
-				background = "res/Background_Sigil.png";
-				backgroundTextureID = slLoadTexture(background.c_str());
-			}
 		}
 	}
 }
 
 void DrawBackground()
 {
-	if (usingRaylib)
-	{
-		DrawTexture(backgroundTexture, 0, 0, WHITE);
-	}
-	else
-	{
-		slSprite(backgroundTextureID, screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
-	}
+	DrawSprite(backgroundTextureID, 50, 50, 100, 100, WHITE);
 }
 
 void UpdateDeltaTime()

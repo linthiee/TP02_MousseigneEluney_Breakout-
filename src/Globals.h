@@ -12,10 +12,14 @@ enum class Key
 	ESCAPE_KEY,
 };
 
-extern Texture backgroundTexture;
-
 extern std::string background;
 extern int backgroundTextureID;
+
+extern std::string blockNormalTexture;
+extern int blockNormalTextureID;
+
+extern std::string ballNormalTexture;
+extern int ballNormalTextureID;
 
 extern float deltaT;
 
@@ -24,10 +28,8 @@ extern bool usingRaylib;
 extern int screenWidth;
 extern int screenHeight;
 
-const int minDirecBall = -1;
-const int maxDirecBall = 1;
+const int minDirecBall = 0;
+const int maxDirecBall = 20;
 
-const int maxCols = 10;
+const int maxCols = 8;
 const int maxRows = 7;
-
-const int offset = 5;

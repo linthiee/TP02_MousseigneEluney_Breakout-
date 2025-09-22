@@ -2,10 +2,8 @@
 
 void ball::Draw(Ball ball)
 {
-	ball.posY = ball.posY * screenHeight / 100;
-	ball.posX = ball.posX * screenWidth / 100;
-
-	DrawCirc(ball.posX, ball.posY, ball.radius, ball.color);
+	DrawCirc(ball.posX, ball.posY, ball.radius, BLACK);
+	DrawSprite(ball.currentTextureID, ball.posX, ball.posY, (ball.radius), 16.0f*(ball.radius)/9.0f, ball.color);
 }
 
 void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
@@ -19,7 +17,7 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 	}
 
 	ball.posX = paddle.posX;
-	ball.posY = paddle.posY - 3.0f;
+	ball.posY = paddle.posY - (paddle.height / 2) - ball.radius;
 
 	if (usingRaylib)
 	{
@@ -82,26 +80,34 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 
 	if (shoot)
 	{
-		ball.velocityY = -ball.velocityY;
+		ball.velocityY = -1;
+		ball.velocityX = 1;
 
-		int direction = rand() % ((maxDirecBall - minDirecBall + 1) + minDirecBall);
+		float direction = rand() % ((maxDirecBall - minDirecBall + 1) + minDirecBall);
 
-		if (direction == -1 || direction == 0)
-		{
-			ball.velocityX = -ball.velocityX;
+		direction -= maxDirecBall / 2;
 
-			if (direction == -1 || direction == 0)
-			{
-				ball.velocityX = -ball.velocityX;
-			}
-		}
-		else
-		{
-			if (direction == 1)
-			{
-				ball.velocityX = -ball.velocityX;
-			}
-		}
+		ball.velocityX = direction/10.0f;
+		Normalize(ball.velocityX,ball.velocityY);
+
+		//int direction = rand() % ((maxDirecBall - minDirecBall + 1) + minDirecBall);
+
+		//if (direction == -1 || direction == 0)
+		//{
+		//	ball.velocityX = -ball.velocityX;
+
+		//	if (direction == -1 || direction == 0)
+		//	{
+		//		ball.velocityX = -ball.velocityX;
+		//	}
+		//}
+		//else
+		//{
+		//	if (direction == 1)
+		//	{
+		//		ball.velocityX = -ball.velocityX;
+		//	}
+		//}
 		ball.firstShoot = false;
 		ball.idle = false;
 	}
@@ -111,43 +117,121 @@ void ball::Movement(Ball& ball)
 {
 	if (!ball.idle)
 	{
+		Normalize(ball.velocityX, ball.velocityY);
+
 		ball.posX += ball.velocityX * ball.speed * deltaT;
 		ball.posY += ball.velocityY * ball.speed * deltaT;
 
-		if (ball.posX + (ball.radius / 100) > 100)
+		if (ball.posX + ball.radius > 100)
 		{
-			ball.posX = 100 - (ball.radius / 100);
+			ball.posX = 100 - ball.radius;
 			ball.velocityX *= -1;
 		}
-		if (ball.posX - (ball.radius / 100) < 0)
+		if (ball.posX - ball.radius < 0)
 		{
-			ball.posX = ball.radius / 100;
+			ball.posX = ball.radius;
 			ball.velocityX *= -1;
 		}
 
-		if (ball.posY + (ball.radius / 100) > 100.0f)
+		if (ball.posY + ball.radius > 100.0f)
 		{
-			ball.posY = 100 - (ball.radius / 100);
+			ball.posY = 100 - ball.radius;
 			ball.velocityY *= -1;
 		}
-		if (ball.posY - (ball.radius / 100) < 0)
+		if (ball.posY - ball.radius < 0)
 		{
-			ball.posY = (ball.radius / 100);
+			ball.posY = ball.radius;
 			ball.velocityY *= -1;
 		}
 	}
 }
 
-//void ball::UpdateMovement(Ball& ball)
-//{
-//	if (usingRaylib)
-//	{
-//
-//
-//
-//	}
-//	else
-//	{
-//
-//	}
-//}
+
+bool ball::CheckCollisions(float posX, float posY, float width, float height, ball::Ball ball)
+{
+	float edgesX = ball.posX;
+	float edgesY = ball.posY;
+
+	if (ball.posX < posX - (width / 2))
+	{
+		edgesX = posX - (width / 2);
+	}
+	else if (ball.posX > posX + (width / 2))
+	{
+		edgesX = posX + (width / 2);
+	}
+
+	if (ball.posY > posY + (height / 2))
+	{
+		edgesY = posY + (height / 2);
+	}
+	else if (ball.posY < posY - (height / 2))
+	{
+		edgesY = posY - (height / 2);
+	}
+
+	float distX = ball.posX - edgesX;
+	float distY = ball.posY - edgesY;
+
+	float distance = (sqrt)((distX * distX) + (distY * distY));
+
+	if (distance < ball.radius)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool ball::CheckCollisions(block::Block& block, ball::Ball ball)
+{
+	return CheckCollisions(block.posX, block.posY, block.width, block.height, ball);
+}
+
+bool ball::CheckCollisions(paddle::Paddle& paddle, ball::Ball ball)
+{
+	return CheckCollisions(paddle.posX, paddle.posY, paddle.width, paddle.height, ball);
+}
+
+void ball::CollidedPaddle(paddle::Paddle& paddle, Ball& ball)
+{
+
+	if (ball.posY < paddle.posY)
+	{
+		ball.posY = paddle.posY - (paddle.height / 2) - ball.radius;
+		ball.velocityY = -1.0f;
+	}
+	else
+	{
+		ball.posY = paddle.posY + (paddle.height / 2) + ball.radius;
+		ball.velocityY = 1.0f;
+	}
+
+	ball.velocityX = (ball.posX - paddle.posX) / (paddle.width / 2);
+	Normalize(ball.velocityX, ball.velocityY);
+
+}
+
+void ball::UpdateMovement(Ball& ball, block::Block block)
+{
+	if (ball.posY < block.posY)
+	{
+		ball.posY = block.posY - (block.height / 2) - ball.radius;
+		ball.velocityY = -1.0f;
+	}
+	else
+	{
+		ball.posY = block.posY + (block.height / 2) + ball.radius;
+		ball.velocityY = 1.0f;
+	}
+
+	if (ball.posX < block.posX - (block.width / 2))
+	{
+		ball.posX = block.posX - (block.width / 2) - ball.radius;
+		ball.velocityX = -1.0f;
+	}
+	else if (ball.posX > block.posX + (block.width / 2))
+	{
+		ball.posX = block.posX + (block.width / 2) + ball.radius;
+		ball.velocityX = 1.0f;
+	}
+}

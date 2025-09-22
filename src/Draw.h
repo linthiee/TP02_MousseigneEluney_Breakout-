@@ -4,5 +4,6 @@
 #include "Sl.h"
 #include "Globals.h"
 
-void DrawRec(int posX, int posY, int width, int height, Color color);
-void DrawCirc(int posX, int posY, float radius, Color color);
+void DrawSprite(float id,float posX, float posY, float width, float height, Color color);
+void DrawRec(float posX, float posY, float width, float height, Color color);
+void DrawCirc(float posX, float posY, float radius, Color color);

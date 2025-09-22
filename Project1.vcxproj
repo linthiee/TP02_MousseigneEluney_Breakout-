@@ -26,6 +26,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
     <ClCompile Include="src\StateManager.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Ball.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\Paddle.h" />
     <ClInclude Include="src\StateManager.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

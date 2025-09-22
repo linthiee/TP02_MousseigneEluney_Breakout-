@@ -1,9 +1,8 @@
 #include "Paddle.h"
-#include "Draw.h"
 
-void paddle::Draw(Paddle& paddle)
+void paddle::Draw(Paddle paddle)
 {
-	DrawRec(paddle.posX * screenWidth / 100, paddle.posY * screenHeight / 100, paddle.width * screenWidth / 100, paddle.height * screenHeight / 100, paddle.color);
+	DrawRec(paddle.posX, paddle.posY, paddle.width, paddle.height, paddle.color);
 }
 
 void paddle::Movement(Paddle& paddle)

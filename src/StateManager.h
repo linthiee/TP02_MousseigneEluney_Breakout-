@@ -9,7 +9,7 @@
 
 void MainLoop();
 
-void Initializers(block::Block block[maxRows][maxCols]);
+void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
 
 void DrawBackground();
 

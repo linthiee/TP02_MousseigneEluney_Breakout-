@@ -3,14 +3,13 @@
 void MainLoop()
 {
 	srand(time(nullptr));
-	usingRaylib = false;
+	usingRaylib = true;
 
 	//Initialization
 	paddle::Paddle paddle;
 	ball::Ball ball;
 	block::Block block[maxRows][maxCols];
 
-	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE};
 
 	Initializers(block,ball,paddle);
 
@@ -62,7 +61,6 @@ void MainLoop()
 			{
 				if (block[row][col].durability > 0)
 				{
-					block[row][col].color = colors[row];
 					block::Draw(block[row][col]);
 				}
 			}
@@ -80,6 +78,8 @@ void MainLoop()
 
 void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle::Paddle& paddle)
 {
+	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE };
+
 	InitializeWindow(screenWidth, screenHeight, "Breakout");
 
 	Texture tempTexture;
@@ -112,6 +112,7 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 	{
 		for (int col = 0; col < maxCols; col++)
 		{
+
 			block[row][col].width = 100.0f * ((float)screenWidth / ((float)maxCols + 1.0f)) / (float)screenWidth;
 
 			block[row][col].posX = 49.5f + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
@@ -119,8 +120,10 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 
 			block[row][col].posY = row * block[row][col].height * 3 + 5 * block[row][col].height;
 
-			block[row][col].currentTextureID = blockNormalTextureID;
+			block[row][col].color = colors[row];
 
+
+			block[row][col].currentTextureID = blockNormalTextureID;
 		}
 	}
 }

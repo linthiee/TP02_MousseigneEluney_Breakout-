@@ -3,7 +3,7 @@
 void ball::Draw(Ball ball)
 {
 	DrawCirc(ball.posX, ball.posY, ball.radius, BLACK);
-	DrawSprite(ball.currentTextureID, ball.posX, ball.posY, (ball.radius), 16.0f*(ball.radius)/9.0f, ball.color);
+	DrawSprite(ball.currentTextureID, ball.posX, ball.posY, (ball.radius), 16.0f * (ball.radius) / 9.0f, ball.color);
 }
 
 void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
@@ -87,27 +87,9 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 
 		direction -= maxDirecBall / 2;
 
-		ball.velocityX = direction/10.0f;
-		Normalize(ball.velocityX,ball.velocityY);
+		ball.velocityX = direction / 10.0f;
+		Normalize(ball.velocityX, ball.velocityY);
 
-		//int direction = rand() % ((maxDirecBall - minDirecBall + 1) + minDirecBall);
-
-		//if (direction == -1 || direction == 0)
-		//{
-		//	ball.velocityX = -ball.velocityX;
-
-		//	if (direction == -1 || direction == 0)
-		//	{
-		//		ball.velocityX = -ball.velocityX;
-		//	}
-		//}
-		//else
-		//{
-		//	if (direction == 1)
-		//	{
-		//		ball.velocityX = -ball.velocityX;
-		//	}
-		//}
 		ball.firstShoot = false;
 		ball.idle = false;
 	}

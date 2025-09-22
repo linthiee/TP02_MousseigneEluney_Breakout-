@@ -21,6 +21,16 @@ extern int blockNormalTextureID;
 extern std::string ballNormalTexture;
 extern int ballNormalTextureID;
 
+extern std::string paddleTexture;
+extern int paddleTextureID;
+
+extern std::string menuTexture;
+extern int menuTextureID;
+
+extern std::string menuSong;
+extern int menuSoundID;
+extern Sound menuSound;
+
 extern float deltaT;
 
 extern bool usingRaylib;

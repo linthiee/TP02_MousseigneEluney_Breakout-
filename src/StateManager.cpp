@@ -5,69 +5,65 @@ void MainLoop()
 	srand(time(nullptr));
 	usingRaylib = true;
 
-	//Initialization
+	State state = State::Menu;
+
 	paddle::Paddle paddle;
 	ball::Ball ball;
 	block::Block block[maxRows][maxCols];
 
-
-	Initializers(block,ball,paddle);
+	game::Initialization(block, ball, paddle);
 
 	while (!WindowClosed())
 	{
-		UpdateDeltaTime();
-
-		//Inputs
-
-		paddle::Movement(paddle);
-		ball::ShootBall(ball, paddle);
-
-		//Update
-
-		screenWidth = ScreenWidth();
-		screenHeight = ScreenHeight();
-
-		ball::Movement(ball);
-
-		if (CheckCollisions(paddle, ball))
+		switch (state)
 		{
-			ball::CollidedPaddle(paddle, ball);
-		}
+		case State::Menu:
 
-		for (int row = 0; row < maxRows; row++)
-		{
-			for (int col = 0; col < maxCols; col++)
-			{
-				if (block[row][col].durability > 0)
-				{
-					if (CheckCollisions(block[row][col], ball))
-					{
-						UpdateDurability(block[row][col]);
-						UpdateMovement(ball, block[row][col]);
-					}
-				}
-			}
-		}
+			menu::Update(state);
 
-		//Draw
+			break;
+		case State::Play:
+
+			game::Update(block, ball, paddle);
+
+			break;
+		case State::Credits:
+			break;
+		case State::Pause:
+			break;
+		case State::EndScreen:
+			break;
+		case State::Exit:
+			break;
+		default:
+			break;
+		}
 
 		StartDrawing();
 
-		DrawBackground();
-
-		for (int row = 0; row < maxRows; row++)
+		switch (state)
 		{
-			for (int col = 0; col < maxCols; col++)
-			{
-				if (block[row][col].durability > 0)
-				{
-					block::Draw(block[row][col]);
-				}
-			}
-		}
+		case State::Menu:
 
-		paddle::Draw(paddle);
-		ball::Draw(ball);
+			menu::Draw();
+
+			break;
+		case State::Play:
+
+			game::Draw(block, ball, paddle);
+
+			break;
+		case State::Credits:
+			break;
+		case State::Pause:
+			break;
+		case State::EndScreen:
+			break;
+		case State::Exit:
+			break;
+		default:
+			break;
+		}
 
 		FinishDrawing();
 	}
@@ -91,9 +87,13 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 
 		tempTexture = LoadTexture(blockNormalTexture.c_str());
 		blockNormalTextureID = tempTexture.id;
+		paddleTextureID = tempTexture.id;
 
 		tempTexture = LoadTexture(ballNormalTexture.c_str());
 		ballNormalTextureID = tempTexture.id;
+
+		tempTexture = LoadTexture(menuTexture.c_str());
+		menuTextureID = tempTexture.id;		
 	}
 	else
 	{
@@ -103,11 +103,17 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 		blockNormalTextureID = slLoadTexture(blockNormalTexture.c_str());
 
 		ballNormalTextureID = slLoadTexture(ballNormalTexture.c_str());
+
+		paddleTextureID = slLoadTexture(blockNormalTexture.c_str());
+
+		menuTextureID = slLoadTexture(menuTexture.c_str());
+
+		menuSoundID = slLoadWAV(menuSong.c_str());
 	}
 
 	ball.currentTextureID = ballNormalTextureID;
+	paddle.currentTextureID = paddleTextureID;
 	
-
 	for (int row = 0; row < maxRows; row++)
 	{
 		for (int col = 0; col < maxCols; col++)
@@ -185,10 +191,8 @@ void InitializeWindow(int screenWidth, int screenHeight, std::string title)
 
 bool WindowClosed()
 {
-
 	if (usingRaylib)
 	{
-
 		if (WindowShouldClose())
 		{
 			return true;
@@ -240,4 +244,61 @@ void FinishDrawing()
 	{
 		slRender();
 	}
+}
+
+void game::Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
+{
+	Initializers(block, ball, paddle);
+}
+
+void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
+{
+	UpdateDeltaTime();
+
+	paddle::Movement(paddle);
+	ball::ShootBall(ball, paddle);
+
+	screenWidth = ScreenWidth();
+	screenHeight = ScreenHeight();
+
+	ball::Movement(ball);
+
+	if (CheckCollisions(paddle, ball))
+	{
+		ball::CollidedPaddle(paddle, ball);
+	}
+
+	for (int row = 0; row < maxRows; row++)
+	{
+		for (int col = 0; col < maxCols; col++)
+		{
+			if (block[row][col].durability > 0)
+			{
+				if (CheckCollisions(block[row][col], ball))
+				{
+					UpdateDurability(block[row][col]);
+					UpdateMovement(ball, block[row][col]);
+				}
+			}
+		}
+	}
+}
+
+void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
+{	
+	DrawBackground();
+
+	for (int row = 0; row < maxRows; row++)
+	{
+		for (int col = 0; col < maxCols; col++)
+		{
+			if (block[row][col].durability > 0)
+			{
+				block::Draw(block[row][col]);
+			}
+		}
+	}
+
+	paddle::Draw(paddle);
+	ball::Draw(ball);
 }

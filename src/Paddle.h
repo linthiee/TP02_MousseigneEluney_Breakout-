@@ -16,7 +16,7 @@ namespace paddle
 
 		float speed = 50.0f;
 
-		Color color = SKYBLUE;
+		Color color = WHITE;
 
 		int currentTextureID = 0;
 

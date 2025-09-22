@@ -2,7 +2,7 @@
 
 void paddle::Draw(Paddle paddle)
 {
-	DrawRec(paddle.posX, paddle.posY, paddle.width, paddle.height, paddle.color);
+	DrawSprite(paddle.currentTextureID, paddle.posX, paddle.posY, paddle.width, paddle.height, paddle.color);
 }
 
 void paddle::Movement(Paddle& paddle)

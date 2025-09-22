@@ -1,5 +1,10 @@
 #pragma once
 
+enum class State
+{
+	Menu, Play, Credits, Pause, EndScreen, Exit
+};
+
 #include <string>
 #include "Draw.h"
 #include "Globals.h"
@@ -25,3 +30,10 @@ void EndWindow();
 
 void StartDrawing();
 void FinishDrawing();
+
+namespace game
+{
+	void Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
+	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
+	void Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
+}

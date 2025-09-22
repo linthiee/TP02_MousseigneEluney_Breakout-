@@ -15,7 +15,7 @@ void block::UpdateDurability(Block& block)
 	block.color.r /= 1.25f;
 	block.color.g /= 1.25f;
 	block.color.b /= 1.25f;
-	//block.color.a /= 1.5f;
+
 	if (block.durability > 0)
 	{
 		block.durability--;

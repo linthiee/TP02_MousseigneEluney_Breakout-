@@ -24,6 +24,12 @@ extern int ballNormalTextureID;
 extern std::string paddleTexture;
 extern int paddleTextureID;
 
+extern std::string mutedIcon;
+extern int mutedIconID;
+
+extern std::string unmutedIcon;
+extern int unmutedIconID;
+
 extern std::string menuTexture;
 extern int menuTextureID;
 

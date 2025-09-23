@@ -15,6 +15,12 @@ int paddleTextureID = 0;
 std::string menuTexture = "res/Background_Menu.png";
 int menuTextureID = 0;
 
+std::string mutedIcon = "res/Muted_Icon.png";
+int mutedIconID = 0;
+
+std::string unmutedIcon = "res/Unmuted_Icon.png";
+int unmutedIconID = 0;
+
 std::string menuSong = "res/Background_Theme.wav";
 int menuSoundID = 0;
 Sound menuSound;

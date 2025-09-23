@@ -14,10 +14,10 @@ void DrawSprite(float id, float posX, float posY, float width, float height, Col
 	}
 	else
 	{
-		double r = (double)color.r / 128;
-		double g = (double)color.g / 128;
-		double b = (double)color.b / 128;
-		double a = (double)color.a / 128;
+		double r = (double)color.r / 220;
+		double g = (double)color.g / 220;
+		double b = (double)color.b / 220;
+		double a = (double)color.a / 220;
 
 		slSetForeColor(r, g, b, a);
 		slSprite(id, (posX * screenWidth / 100.0f), screenHeight - (posY * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f));
@@ -62,12 +62,19 @@ void DrawCirc(float posX, float posY, float radius, Color color)
 
 void DrawText(text::Text text)
 {
+
 	if (usingRaylib)
 	{
 		DrawTextEx(text.font, text.text.c_str(), { (text.posX * screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2, (text.posY * screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
 	}
 	else
 	{
+		slSetFont(font, (int)text.fonstSize);
 		slText((text.posX * screenWidth / 100.0f) - slGetTextWidth(text.text.c_str()) / 2, screenHeight - (text.posY * screenHeight / 100.0f), text.text.c_str());
 	}
+}
+
+void DrawButtons(buttons::Button icon)
+{
+	DrawSprite(icon.currentTextureID, icon.posX, icon.posY, icon.width, icon.height, icon.color);
 }

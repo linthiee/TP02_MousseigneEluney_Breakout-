@@ -146,11 +146,11 @@ void paddle::LivesDraw(Paddle& paddle, text::Text hp)
 	{
 		if (usingRaylib)
 		{
-			DrawCirc(hp.posX + posX / 2 + i * 2, radius * 2, radius, WHITE);
+			DrawCirc(hp.posX * 2 + i * 2, radius * 4.0f, radius, WHITE);
 		}
 		else
 		{
-			DrawCirc(hp.posX + posX / 2 + i * 2, radius * 2.5f, radius, WHITE);
+			DrawCirc(hp.posX * 2 + i * 2, radius * 3.0f, radius, WHITE);
 		}
 	}
 }

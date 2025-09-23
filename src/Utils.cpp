@@ -32,3 +32,4 @@ void Scale(float& x, float& y, float scalar)
 	x = x * scalar;
 	y = y * scalar;
 }
+

@@ -23,8 +23,13 @@ namespace paddle
 		Key keyLeft = Key::LEFT_KEY;
 		Key keyRight = Key::RIGHT_KEY;
 		Key keyUp = Key::UP_KEY;
+
+		int score = 0;
+
+		int lives = 5;
 	};
 
 	void Draw(Paddle paddle);
 	void Movement(Paddle& paddle);
+	void LivesDraw(Paddle& paddle, text::Text hp);
 }

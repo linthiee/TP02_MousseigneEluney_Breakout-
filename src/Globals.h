@@ -31,6 +31,10 @@ extern std::string menuSong;
 extern int menuSoundID;
 extern Sound menuSound;
 
+extern std::string fontText;
+extern int font;
+extern int fontSize;
+
 extern float deltaT;
 
 extern bool usingRaylib;

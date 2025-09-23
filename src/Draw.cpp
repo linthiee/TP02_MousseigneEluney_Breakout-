@@ -8,7 +8,7 @@ void DrawSprite(float id, float posX, float posY, float width, float height, Col
 
 		texture.id = id;
 		texture.width = (width * screenWidth / 100.0f);
-		texture.height =  (height * screenHeight / 100.0f);
+		texture.height = (height * screenHeight / 100.0f);
 
 		DrawTexture(texture, (posX * screenWidth / 100.0f) - ((width / 2) * screenWidth / 100.0f), (posY * screenHeight / 100.0f) - ((height / 2) * screenHeight / 100.0f), color);
 	}
@@ -28,7 +28,7 @@ void DrawRec(float posX, float posY, float width, float height, Color color)
 {
 	if (usingRaylib)
 	{
-		DrawRectangle((posX * screenWidth / 100.0f) - ((width / 2)*screenWidth/100.0f), (posY * screenHeight / 100.0f) - ((height / 2) * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f), color);
+		DrawRectangle((posX * screenWidth / 100.0f) - ((width / 2) * screenWidth / 100.0f), (posY * screenHeight / 100.0f) - ((height / 2) * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f), color);
 	}
 	else
 	{
@@ -46,7 +46,7 @@ void DrawCirc(float posX, float posY, float radius, Color color)
 {
 	if (usingRaylib)
 	{
-		DrawCircle((posX * screenWidth / 100.0f), (posY * screenHeight / 100.0f), (radius*screenHeight/100.0f), color);
+		DrawCircle((posX * screenWidth / 100.0f), (posY * screenHeight / 100.0f), (radius * screenHeight / 100.0f), color);
 	}
 	else
 	{
@@ -56,6 +56,18 @@ void DrawCirc(float posX, float posY, float radius, Color color)
 		double a = (double)color.a / 255;
 
 		slSetForeColor(r, g, b, a);
-		slCircleFill((posX * screenWidth / 100.0f),screenHeight - (posY * screenHeight / 100.0f), (radius * screenHeight / 100.0f), (double)radius * 200);
+		slCircleFill((posX * screenWidth / 100.0f), screenHeight - (posY * screenHeight / 100.0f), (radius * screenHeight / 100.0f), (double)radius * 200);
+	}
+}
+
+void DrawText(text::Text text)
+{
+	if (usingRaylib)
+	{
+		DrawTextEx(text.font, text.text.c_str(), { (text.posX * screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2, (text.posY * screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
+	}
+	else
+	{
+		slText((text.posX * screenWidth / 100.0f) - slGetTextWidth(text.text.c_str()) / 2, screenHeight - (text.posY * screenHeight / 100.0f), text.text.c_str());
 	}
 }

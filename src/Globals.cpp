@@ -17,6 +17,11 @@ int menuTextureID = 0;
 
 std::string menuSong = "res/Background_Theme.wav";
 int menuSoundID = 0;
+Sound menuSound;
+
+std::string fontText = "res/Pixellari.ttf";
+int font = 0;
+int fontSize = 20;
 
 float deltaT = 0.0f;
 

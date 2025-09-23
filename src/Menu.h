@@ -4,5 +4,5 @@
 namespace menu
 {
 	void Update(State& state);
-	void Draw();
+	void Draw(text::Text title);
 }

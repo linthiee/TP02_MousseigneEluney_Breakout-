@@ -18,6 +18,8 @@ namespace block
 		int durability = 3;
 
 		int currentTextureID = 0;
+
+		int score = 0;
 	};
 
 	void Draw(Block block);

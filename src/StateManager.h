@@ -11,6 +11,8 @@ enum class State
 #include "Paddle.h"
 #include "Ball.h"
 #include "Block.h"
+#include "Utils.h"
+#include "Menu.h"
 
 void MainLoop();
 
@@ -33,7 +35,7 @@ void FinishDrawing();
 
 namespace game
 {
-	void Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
-	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
-	void Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle);
+	void Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp, text::Text& title);
+	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score);
+	void Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text score, text::Text hp);
 }

@@ -7,11 +7,18 @@ void MainLoop()
 
 	State state = State::Menu;
 
+	text::Text score;
+	text::Text hp;
+	text::Text title;
+
 	paddle::Paddle paddle;
 	ball::Ball ball;
 	block::Block block[maxRows][maxCols];
 
-	game::Initialization(block, ball, paddle);
+	game::Initialization(block, ball, paddle, score, hp, title);
+	SetSoundVolume(menuSound, 0.1f);
+	PlaySound(menuSound);
+	//slSoundPlay(menuSoundID);
 
 	while (!WindowClosed())
 	{
@@ -24,7 +31,7 @@ void MainLoop()
 			break;
 		case State::Play:
 
-			game::Update(block, ball, paddle);
+			game::Update(block, ball, paddle, score);
 
 			break;
 		case State::Credits:
@@ -45,12 +52,12 @@ void MainLoop()
 		{
 		case State::Menu:
 
-			menu::Draw();
+			menu::Draw(title);
 
 			break;
 		case State::Play:
 
-			game::Draw(block, ball, paddle);
+			game::Draw(block, ball, paddle, score, hp);
 
 			break;
 		case State::Credits:
@@ -67,18 +74,25 @@ void MainLoop()
 
 		FinishDrawing();
 	}
-	//DeInitialize
+	//DeInitialize (ACORDARSE DE DEINICIALIZAR LAS TEXTURAS!!!!!!!!1111)
 	EndWindow();
 
 }
 
-void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle::Paddle& paddle)
+void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp, text::Text& title)
 {
 	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE };
+	int scores[maxRows] = { 350, 300, 250, 200, 150, 100, 50 };
 
 	InitializeWindow(screenWidth, screenHeight, "Breakout");
 
+	InitAudioDevice();
+
 	Texture tempTexture;
+
+	score.text = "Score: " + std::to_string(paddle.score);
+	hp.text = "Hp: ";
+	title.text = "Breakout!";
 
 	if (usingRaylib)
 	{
@@ -93,7 +107,25 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 		ballNormalTextureID = tempTexture.id;
 
 		tempTexture = LoadTexture(menuTexture.c_str());
-		menuTextureID = tempTexture.id;		
+		menuTextureID = tempTexture.id;
+
+		menuSound = LoadSound(menuSong.c_str());
+
+		score.font = LoadFont(fontText.c_str());
+
+		score.posX = screenWidth - MeasureText(score.text.c_str(), score.fonstSize + score.fonstSize / 2);
+
+		hp.font = LoadFont(fontText.c_str());
+
+		hp.posX = 0;
+
+		title.fonstSize = 40;
+
+		title.font = LoadFont(fontText.c_str());
+
+		title.posX = 50;
+		title.posY = 10;
+
 	}
 	else
 	{
@@ -108,17 +140,31 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 
 		menuTextureID = slLoadTexture(menuTexture.c_str());
 
+		font = slLoadFont(fontText.c_str());
+		slSetFont(font, fontSize);
+
+		score.posX = (screenWidth - score.fonstSize * 2) - slGetTextWidth(score.text.c_str());
+		score.posY = screenHeight - slGetTextHeight(score.text.c_str());
+
+		hp.posX = 0;
+		hp.posY = screenHeight - slGetTextHeight(hp.text.c_str());
+
+		title.posX = 50;
+		title.posY = 10;
+
+		title.fonstSize = 60;
+		slSetFont(font, (int)title.fonstSize);
+
 		menuSoundID = slLoadWAV(menuSong.c_str());
 	}
 
 	ball.currentTextureID = ballNormalTextureID;
 	paddle.currentTextureID = paddleTextureID;
-	
+
 	for (int row = 0; row < maxRows; row++)
 	{
 		for (int col = 0; col < maxCols; col++)
 		{
-
 			block[row][col].width = 100.0f * ((float)screenWidth / ((float)maxCols + 1.0f)) / (float)screenWidth;
 
 			block[row][col].posX = 49.5f + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
@@ -128,6 +174,7 @@ void Initializers(block::Block block[maxRows][maxCols],ball::Ball& ball, paddle:
 
 			block[row][col].color = colors[row];
 
+			block[row][col].score = scores[row];
 
 			block[row][col].currentTextureID = blockNormalTextureID;
 		}
@@ -177,7 +224,6 @@ int ScreenHeight()
 
 void InitializeWindow(int screenWidth, int screenHeight, std::string title)
 {
-
 	if (usingRaylib)
 	{
 		InitWindow(screenWidth, screenHeight, title.c_str());
@@ -246,12 +292,12 @@ void FinishDrawing()
 	}
 }
 
-void game::Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
+void game::Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp, text::Text& title)
 {
-	Initializers(block, ball, paddle);
+	Initializers(block, ball, paddle, score, hp, title);
 }
 
-void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
+void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score)
 {
 	UpdateDeltaTime();
 
@@ -278,15 +324,29 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 				{
 					UpdateDurability(block[row][col]);
 					UpdateMovement(ball, block[row][col]);
+
+					if (block[row][col].durability <= 0)
+					{
+						paddle.score += block[row][col].score;
+					}
 				}
 			}
 		}
 	}
+
+	UpdateOnLivesLost(ball, paddle);
+
+	score.text = "Score: " + std::to_string(paddle.score);
 }
 
-void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle)
-{	
+void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text score, text::Text hp)
+{
 	DrawBackground();
+
+	DrawText(score);
+	DrawText(hp);
+
+	LivesDraw(paddle, hp);
 
 	for (int row = 0; row < maxRows; row++)
 	{

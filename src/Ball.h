@@ -29,7 +29,7 @@ namespace ball
 	};
 
 	void Draw(Ball ball);
-    void ShootBall(Ball& ball, paddle::Paddle& paddle);
+	void ShootBall(Ball& ball, paddle::Paddle& paddle);
 	void Movement(Ball& ball);
 
 	bool CheckCollisions(float posX, float posY, float width, float height, ball::Ball ball);
@@ -39,4 +39,7 @@ namespace ball
 	void CollidedPaddle(paddle::Paddle& paddle, Ball& ball);
 
 	void UpdateMovement(Ball& ball, block::Block block);
+
+	void UpdateOnLivesLost(Ball& ball, paddle::Paddle& paddle);
+
 }

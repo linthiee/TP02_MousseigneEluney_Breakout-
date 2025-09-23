@@ -217,3 +217,20 @@ void ball::UpdateMovement(Ball& ball, block::Block block)
 		ball.velocityX = 1.0f;
 	}
 }
+
+void ball::UpdateOnLivesLost(Ball& ball, paddle::Paddle& paddle)
+{
+	if (ball.posY + ball.radius >= 100.0f)
+	{
+		paddle.lives--;
+
+		paddle.posX = 50;
+		paddle.posY = 95;
+
+		ball.posX = paddle.posX;
+		ball.posY = paddle.posY - (paddle.height / 2) - ball.radius;
+
+		ball.firstShoot = true;
+		ball.idle = true;
+	}
+}

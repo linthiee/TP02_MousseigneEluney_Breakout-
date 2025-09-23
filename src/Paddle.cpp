@@ -136,3 +136,21 @@ void paddle::Movement(Paddle& paddle)
 		paddle.posX = 100 - paddle.width / 2;
 	}
 }
+
+void paddle::LivesDraw(Paddle& paddle, text::Text hp)
+{
+	int posX = 10;
+	int radius = 1.2f;
+
+	for (int i = 0; i < paddle.lives; i++)
+	{
+		if (usingRaylib)
+		{
+			DrawCirc(hp.posX + posX / 2 + i * 2, radius * 2, radius, WHITE);
+		}
+		else
+		{
+			DrawCirc(hp.posX + posX / 2 + i * 2, radius * 2.5f, radius, WHITE);
+		}
+	}
+}

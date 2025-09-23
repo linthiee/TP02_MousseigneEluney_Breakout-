@@ -24,6 +24,7 @@ namespace buttons
 {
 	struct Button
 	{
+
 		float posX = 0;
 		float posY = 0;
 
@@ -33,6 +34,8 @@ namespace buttons
 		Color color = WHITE;
 
 		int currentTextureID = 0;
+
+		bool isMuted = false;
 	};
 }
 

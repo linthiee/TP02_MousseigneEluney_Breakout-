@@ -43,7 +43,7 @@ void MainLoop()
 			break;
 		case State::Play:
 
-			game::Update(block, ball, paddle, score);
+			game::Update(block, ball, paddle, score, mute, unmute);
 
 			break;
 		case State::Credits:
@@ -334,9 +334,9 @@ void game::Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball
 	Initializers(block, ball, paddle, score, hp, title, mute, unmute);
 }
 
-void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score)
+void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, buttons::Button& mute, buttons::Button& unmute)
 {
-	sound::PauseUnpauseSong();
+	sound::PauseUnpauseSong(mute);
 
 	UpdateDeltaTime();
 
@@ -383,7 +383,15 @@ void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::
 {
 	DrawBackground();
 
-	DrawButtons(mute);
+	if (mute.isMuted)
+	{
+		DrawButtons(mute);
+	}
+	else
+	{
+		DrawButtons(unmute);
+	}
+
 	DrawText(score);
 	DrawText(hp);
 
@@ -435,30 +443,50 @@ void sound::SetPlayingSound()
 	}
 }
 
-void sound::PauseUnpauseSong()
+void sound::PauseUnpauseSong(buttons::Button& mute)
 {
-
 	if (usingRaylib)
 	{
-		if (IsKeyPressed('M'))
+		if (IsKeyPressed('M') && !mute.isMuted)
 		{
+			mute.isMuted = true;
 			StopSound(menuSound);
 		}
-		else if (IsKeyPressed('U'))
+		else if (IsKeyPressed('M') && mute.isMuted)
 		{
+			mute.isMuted = false;
 			ResumeSound(menuSound);
 		}
 	}
 	else
 	{
+		muteButtonWasPressed = false;
+
 		if (slGetKey('M'))
 		{
-			slSoundPause(menuSoundID);
+			if (!muteButtonIsPressed)
+			{
+				muteButtonWasPressed = true;
+			}
+			muteButtonIsPressed = true;
 		}
-		if (slGetKey('U'))
+		else
 		{
-			slSoundResumeAll();
+			muteButtonIsPressed = false;
+		}
+
+		if (muteButtonWasPressed)
+		{
+			mute.isMuted = !mute.isMuted;
+
+			if (mute.isMuted)
+			{
+				slSoundPause(menuSoundID);
+			}
+			else
+			{
+				slSoundResumeAll();
+			}
 		}
 	}
-
 }

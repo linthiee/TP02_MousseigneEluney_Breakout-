@@ -45,6 +45,9 @@ extern float deltaT;
 
 extern bool usingRaylib;
 
+extern bool muteButtonIsPressed;
+extern bool muteButtonWasPressed;
+
 extern int screenWidth;
 extern int screenHeight;
 

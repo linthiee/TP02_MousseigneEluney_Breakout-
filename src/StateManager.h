@@ -38,7 +38,8 @@ namespace game
 {
 	void Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 		text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute);
-	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score);
+	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle,
+		text::Text& score, buttons::Button& mute, buttons::Button& unmute);
 	void Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute);
 }
@@ -47,5 +48,5 @@ namespace sound
 {
 	void SetSound();
 	void SetPlayingSound();
-	void PauseUnpauseSong();
+	void PauseUnpauseSong(buttons::Button& mute);
 }

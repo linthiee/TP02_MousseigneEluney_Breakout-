@@ -31,6 +31,9 @@ int fontSize = 20;
 
 float deltaT = 0.0f;
 
+bool muteButtonIsPressed = false;
+bool muteButtonWasPressed = false;
+
 bool usingRaylib = false;
 
 int screenWidth = 825;

@@ -5,7 +5,7 @@ void MainLoop()
 	srand(time(nullptr));
 	usingRaylib = false;
 
-	State state = State::Play;
+	State state = State::Menu;
 
 	text::Text score;
 	text::Text hp;
@@ -20,7 +20,7 @@ void MainLoop()
 
 	game::Initialization(block, ball, paddle, score, hp, title, mute, unmute);
 
-	sound::SetSound();
+	sound::SetSound(menuSound, menuSoundID);
 
 	while (!WindowClosed())
 	{
@@ -31,6 +31,10 @@ void MainLoop()
 			menu::Update(state);
 
 			if (slGetKey('P'))
+			{
+				state = State::Play;
+			}
+			if (IsKeyPressed('P'))
 			{
 				state = State::Play;
 			}
@@ -131,6 +135,12 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 
 		menuSound = LoadSound(menuSong.c_str());
 
+		collisionEffectSound = LoadSound(collisionEffect.c_str());
+
+		playingSound = LoadSound(playingSong.c_str());
+
+		collisionWithPaddleSound = LoadSound(collisionWithPaddle.c_str());
+
 		score.font = LoadFont(fontText.c_str());
 
 		score.posX = 80;
@@ -190,6 +200,12 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 		unmute.posY = 4;
 
 		menuSoundID = slLoadWAV(menuSong.c_str());
+
+		playingSongID = slLoadWAV(playingSong.c_str());
+
+		collisionEffectID = slLoadWAV(collisionEffect.c_str());
+
+		collisionWithPaddleID = slLoadWAV(collisionWithPaddle.c_str());
 	}
 
 	ball.currentTextureID = ballNormalTextureID;
@@ -197,9 +213,10 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	unmute.currentTextureID = unmutedIconID;
 	mute.currentTextureID = mutedIconID;
 
-	for (int row = 0; row < maxRows; row++)
+	for (int col = 0; col < maxCols; col++)
 	{
-		for (int col = 0; col < maxCols; col++)
+		int counterInCol = 0;
+		for (int row = 0; row < maxRows; row++)
 		{
 			block[row][col].width = 100.0f * ((float)screenWidth / ((float)maxCols + 1.0f)) / (float)screenWidth;
 
@@ -211,6 +228,17 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 			block[row][col].color = colors[row];
 
 			block[row][col].score = scores[row];
+
+			if (counterInCol < maxPowerUpsPerCol)
+			{
+				block[row][col].block.powerUpType = block::DecidePowerUpType(block[row][col].block.counterInCol);
+				block::ApplyPowerUpToBlock(block[row][col]);
+			}
+
+			if (block[row][col].block.powerUpType != powerup::PowerUpType::None)
+			{
+				counterInCol++;
+			}
 
 			block[row][col].currentTextureID = blockNormalTextureID;
 		}
@@ -350,6 +378,10 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 
 	if (CheckCollisions(paddle, ball))
 	{
+		if (!ball.idle)
+		{
+			sound::SetSound(collisionWithPaddleSound, collisionWithPaddleID);
+		}
 		ball::CollidedPaddle(paddle, ball);
 	}
 
@@ -361,6 +393,7 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 			{
 				if (CheckCollisions(block[row][col], ball))
 				{
+					sound::SetSound(collisionEffectSound, collisionEffectID);
 					UpdateDurability(block[row][col]);
 					UpdateMovement(ball, block[row][col]);
 
@@ -412,34 +445,32 @@ void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::
 	ball::Draw(ball);
 }
 
-void sound::SetSound()
+void sound::SetSound(Sound sound, int soundID)
 {
 	if (usingRaylib)
 	{
-		PlaySound(menuSound);
+		SetSoundVolume(sound, 0.5f);
+		PlaySound(sound);
 	}
 	else
 	{
-		slSoundPlay(menuSoundID);
+		slSoundPlay(soundID);
 	}
 }
 
 void sound::SetPlayingSound()
 {
-	menuSong = "res/Playing_Theme.wav";
-
-
 	if (usingRaylib)
 	{
-		menuSound = LoadSound(menuSong.c_str());
-		PlaySound(menuSound);
+		StopSound(menuSound);
+
+		PlaySound(playingSound);
 	}
 	else
 	{
 		slSoundStop(menuSoundID);
 
-		menuSoundID = slLoadWAV(menuSong.c_str());
-		slSoundLoop(menuSoundID);
+		slSoundLoop(playingSongID);
 	}
 }
 
@@ -450,12 +481,12 @@ void sound::PauseUnpauseSong(buttons::Button& mute)
 		if (IsKeyPressed('M') && !mute.isMuted)
 		{
 			mute.isMuted = true;
-			StopSound(menuSound);
+			PauseSound(playingSound);
 		}
 		else if (IsKeyPressed('M') && mute.isMuted)
 		{
 			mute.isMuted = false;
-			ResumeSound(menuSound);
+			ResumeSound(playingSound);
 		}
 	}
 	else
@@ -481,7 +512,7 @@ void sound::PauseUnpauseSong(buttons::Button& mute)
 
 			if (mute.isMuted)
 			{
-				slSoundPause(menuSoundID);
+				slSoundPause(playingSongID);
 			}
 			else
 			{

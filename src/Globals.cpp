@@ -25,6 +25,18 @@ std::string menuSong = "res/Background_Theme.wav";
 int menuSoundID = 0;
 Sound menuSound;
 
+std::string playingSong = "res/Playing_Theme.wav";
+int playingSongID = 0;
+Sound playingSound;
+
+std::string collisionEffect = "res/block_hit_pop.wav";
+int collisionEffectID = 0;
+Sound collisionEffectSound;
+
+std::string collisionWithPaddle = "res/paddle_bounce_blip.wav";
+int collisionWithPaddleID = 0;
+Sound collisionWithPaddleSound;
+
 std::string fontText = "res/Pixellari.ttf";
 int font = 0;
 int fontSize = 20;

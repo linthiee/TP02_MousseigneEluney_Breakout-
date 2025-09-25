@@ -37,6 +37,18 @@ extern std::string menuSong;
 extern int menuSoundID;
 extern Sound menuSound;
 
+extern std::string playingSong;
+extern int playingSongID;
+extern Sound playingSound;
+
+extern std::string collisionEffect;
+extern int collisionEffectID;
+extern Sound collisionEffectSound;
+
+extern std::string collisionWithPaddle;
+extern int collisionWithPaddleID;
+extern Sound collisionWithPaddleSound;
+
 extern std::string fontText;
 extern int font;
 extern int fontSize;
@@ -53,6 +65,17 @@ extern int screenHeight;
 
 const int minDirecBall = 0;
 const int maxDirecBall = 20;
+
+const int minProb = 1.0f;
+const int maxProb = 100.0f;
+const int probRange = (maxProb - minProb + 1);
+
+const int maxPowerUpsPerCol = 3;
+
+const int shootBallProb = 20;
+const int extraPaddlesProb = 30;
+const int doubleDmgProb = 40;
+const int extraBallProb = 50;
 
 const int maxCols = 8;
 const int maxRows = 7;

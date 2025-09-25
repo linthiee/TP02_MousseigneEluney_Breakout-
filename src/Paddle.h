@@ -8,7 +8,7 @@ namespace paddle
 {
 	struct Paddle
 	{
-		float width = 5;
+		float width = 7;
 		float height = 2;
 
 		float posX = 50;

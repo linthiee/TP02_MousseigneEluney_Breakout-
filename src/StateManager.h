@@ -46,7 +46,7 @@ namespace game
 
 namespace sound
 {
-	void SetSound();
+	void SetSound(Sound sound, int soundID);
 	void SetPlayingSound();
 	void PauseUnpauseSong(buttons::Button& mute);
 }

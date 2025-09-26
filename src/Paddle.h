@@ -2,12 +2,15 @@
 #include <iostream>
 #include "Raylib.h"
 #include "Globals.h"
+#include "Block.h"
 #include "Draw.h"
 
 namespace paddle
 {
 	struct Paddle
 	{
+		powerup::PowerUpType powerUpType = powerup::PowerUpType::None;
+
 		float width = 7;
 		float height = 2;
 
@@ -32,4 +35,6 @@ namespace paddle
 	void Draw(Paddle paddle);
 	void Movement(Paddle& paddle);
 	void LivesDraw(Paddle& paddle, text::Text hp);
+
+	void ApplyPowerUp();
 }

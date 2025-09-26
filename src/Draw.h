@@ -4,6 +4,8 @@
 #include "Sl.h"
 #include "Globals.h"
 #include "Utils.h"
+#include "Buttons.h"
+#include "Text.h"
 
 namespace draw
 {

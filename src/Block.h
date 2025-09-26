@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Raylib.h"
+#include "Globals.h"
 #include "Draw.h"
 
 namespace powerup
@@ -20,7 +21,6 @@ namespace powerup
 
 		float timer = 10.0f;
 	};
-
 
 }
 
@@ -47,6 +47,8 @@ namespace block
 	};
 
 	powerup::PowerUpType DecidePowerUpType(int counterInCol);
+
+	powerup::PowerUpType PowerUpActivaded(Block& block);
 
 	void ApplyPowerUpToBlock(Block& block);
 

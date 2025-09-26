@@ -22,22 +22,23 @@
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Block.cpp" />
     <ClCompile Include="src\Draw.cpp" />
+    <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
-    <ClCompile Include="src\StateManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameLoop.h" />
     <ClInclude Include="src\Ball.h" />
     <ClInclude Include="src\Block.h" />
+    <ClInclude Include="src\Buttons.h" />
     <ClInclude Include="src\Draw.h" />
+    <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\Paddle.h" />
-    <ClInclude Include="src\StateManager.h" />
+    <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

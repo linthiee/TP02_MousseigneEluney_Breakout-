@@ -29,21 +29,73 @@ powerup::PowerUpType block::DecidePowerUpType(int counterInCol)
 	return powerup::PowerUpType::None;
 }
 
+powerup::PowerUpType block::PowerUpActivaded(Block& block)
+{
+	switch (block.block.powerUpType)
+	{
+	case powerup::PowerUpType::ExtraBall:
+
+		std::cout << "Power up active!";
+		return powerup::PowerUpType::ExtraBall;
+
+		break;
+	case powerup::PowerUpType::ExtraPaddles:
+		
+		std::cout << "Power up active!";
+
+		return powerup::PowerUpType::ExtraPaddles;
+
+		break;
+	case powerup::PowerUpType::DoubleDamage:
+
+		std::cout << "Power up active!";
+
+		return powerup::PowerUpType::DoubleDamage;
+
+		break;
+	case powerup::PowerUpType::ShootBall:
+		std::cout << "Power up active!";
+
+		return powerup::PowerUpType::ShootBall;
+
+		break;
+	case powerup::PowerUpType::None:
+
+		return powerup::PowerUpType::None;
+
+		break;
+	default:
+
+		return powerup::PowerUpType::None;
+
+		break;
+	}
+	return powerup::PowerUpType::None;
+}
+
 void block::ApplyPowerUpToBlock(Block& block)
 {
 	switch (block.block.powerUpType)
 	{
 	case powerup::PowerUpType::ExtraBall:
+
 		block.color = BLACK;
+
 		break;
 	case powerup::PowerUpType::ExtraPaddles: 
+
 		block.color = BLACK;
+
 		break;
 	case powerup::PowerUpType::DoubleDamage: 
+
 		block.color = BLACK;
+
 		break;
 	case powerup::PowerUpType::ShootBall:
+
 		block.color = BLACK;
+
 		break;
 	case powerup::PowerUpType::None:    
 		break;

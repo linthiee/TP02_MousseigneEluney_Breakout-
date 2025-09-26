@@ -22,10 +22,10 @@
     <ClCompile Include="src\Draw.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="src\StateManager.cpp">
+    <ClCompile Include="src\Main.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Main.cpp">
+    <ClCompile Include="src\GameLoop.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,11 +51,14 @@
     <ClInclude Include="src\Draw.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\StateManager.h">
+    <ClInclude Include="src\GameLoop.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="GameLoop.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="src\Buttons.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

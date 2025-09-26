@@ -2,43 +2,6 @@
 #include <iostream>
 #include "raylib.h"
 
-namespace text
-{
-	struct Text
-	{
-		std::string text;
-
-		float posX = 0;
-		float posY = 0;
-
-		int fonstSize = 20;
-		int spacing = 0;
-
-		Color color = WHITE;
-
-		Font font;
-	};
-}
-
-namespace buttons
-{
-	struct Button
-	{
-
-		float posX = 0;
-		float posY = 0;
-
-		int width = 5;
-		int height = 6;
-
-		Color color = WHITE;
-
-		int currentTextureID = 0;
-
-		bool isMuted = false;
-	};
-}
-
 namespace utils
 {
 	float Clamp(float value, float min, float max);

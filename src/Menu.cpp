@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Globals.h"
 
 //void menu::Update(State& state)
 //{

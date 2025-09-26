@@ -161,18 +161,22 @@ void paddle::ApplyPowerUp(Paddle& paddle)
 	{
 	case powerup::PowerUpType::ExtraBall:
 
+		paddle.speed = 100.0f;
 
 		break;
 	case powerup::PowerUpType::ExtraPaddles:
 
+		paddle.speed = 100.0f;
 
 		break;
 	case powerup::PowerUpType::DoubleDamage:
 
+		paddle.speed = 100.0f;
 
 		break;
 	case powerup::PowerUpType::ShootBall:
 
+		paddle.speed = 100.0f;
 
 		break;
 	case powerup::PowerUpType::None:

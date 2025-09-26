@@ -50,7 +50,7 @@ namespace sound
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = true;
+	globals::usingRaylib = false;
 
 	State state = State::Menu;
 
@@ -448,7 +448,7 @@ void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::
 					{
 						paddle.score += block[row][col].score;
 						paddle.powerUpType = block::PowerUpActivaded(block[row][col]);
-
+						paddle::ApplyPowerUp(paddle);
 					}
 				}
 			}

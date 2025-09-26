@@ -154,3 +154,33 @@ void paddle::LivesDraw(Paddle& paddle, text::Text hp)
 		}
 	}
 }
+
+void paddle::ApplyPowerUp(Paddle& paddle)
+{
+	switch (paddle.powerUpType)
+	{
+	case powerup::PowerUpType::ExtraBall:
+
+
+		break;
+	case powerup::PowerUpType::ExtraPaddles:
+
+
+		break;
+	case powerup::PowerUpType::DoubleDamage:
+
+
+		break;
+	case powerup::PowerUpType::ShootBall:
+
+
+		break;
+	case powerup::PowerUpType::None:
+
+
+		break;
+	default:
+
+		break;
+	}
+}

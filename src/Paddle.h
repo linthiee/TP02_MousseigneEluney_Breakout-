@@ -36,5 +36,5 @@ namespace paddle
 	void Movement(Paddle& paddle);
 	void LivesDraw(Paddle& paddle, text::Text hp);
 
-	void ApplyPowerUp();
+	void ApplyPowerUp(Paddle& paddle);
 }

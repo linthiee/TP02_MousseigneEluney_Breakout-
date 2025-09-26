@@ -50,7 +50,7 @@ namespace sound
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = false;
+	globals::usingRaylib = true;
 
 	State state = State::Menu;
 
@@ -440,7 +440,6 @@ void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::
 			{
 				if (CheckCollisions(block[row][col], ball))
 				{
-					paddle.powerUpType = block::PowerUpActivaded(block[row][col]);
 					sound::SetSound(globals::collisionEffectSound, globals::collisionEffectID);
 					UpdateDurability(block[row][col]);
 					UpdateMovement(ball, block[row][col]);
@@ -448,6 +447,8 @@ void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::
 					if (block[row][col].durability <= 0)
 					{
 						paddle.score += block[row][col].score;
+						paddle.powerUpType = block::PowerUpActivaded(block[row][col]);
+
 					}
 				}
 			}

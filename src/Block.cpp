@@ -35,26 +35,20 @@ powerup::PowerUpType block::PowerUpActivaded(Block& block)
 	{
 	case powerup::PowerUpType::ExtraBall:
 
-		std::cout << "Power up active!";
 		return powerup::PowerUpType::ExtraBall;
 
 		break;
 	case powerup::PowerUpType::ExtraPaddles:
 		
-		std::cout << "Power up active!";
-
 		return powerup::PowerUpType::ExtraPaddles;
 
 		break;
 	case powerup::PowerUpType::DoubleDamage:
 
-		std::cout << "Power up active!";
-
 		return powerup::PowerUpType::DoubleDamage;
 
 		break;
 	case powerup::PowerUpType::ShootBall:
-		std::cout << "Power up active!";
 
 		return powerup::PowerUpType::ShootBall;
 

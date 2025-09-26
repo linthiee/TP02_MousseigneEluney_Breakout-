@@ -181,7 +181,6 @@ void paddle::ApplyPowerUp(Paddle& paddle)
 		break;
 	case powerup::PowerUpType::None:
 
-
 		break;
 	default:
 

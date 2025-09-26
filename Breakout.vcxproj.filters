@@ -54,6 +54,9 @@
     <ClInclude Include="src\StateManager.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameLoop.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Globals">

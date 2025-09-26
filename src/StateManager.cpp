@@ -3,7 +3,7 @@
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = true;
+	globals::usingRaylib = false;
 
 	State state = State::Menu;
 

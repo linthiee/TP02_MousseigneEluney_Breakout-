@@ -1,13 +1,13 @@
 #include "Menu.h"
 
-void menu::Update(State& state)
-{
-
-}
+//void menu::Update(State& state)
+//{
+//
+//}
 
 void menu::Draw(text::Text title)
 {
-	DrawSprite(menuTextureID, 50, 50, 100, 100, WHITE);
+	draw::DrawSprite(globals::menuTextureID, 50, 50, 100, 100, WHITE);
 
-	DrawText(title);
+	draw::DrawText(title);
 }

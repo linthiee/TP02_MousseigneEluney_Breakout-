@@ -3,7 +3,7 @@
 void MainLoop()
 {
 	srand(time(nullptr));
-	usingRaylib = false;
+	globals::usingRaylib = true;
 
 	State state = State::Menu;
 
@@ -16,11 +16,11 @@ void MainLoop()
 
 	paddle::Paddle paddle;
 	ball::Ball ball;
-	block::Block block[maxRows][maxCols];
+	block::Block block[globals::maxRows][globals::maxCols];
 
 	game::Initialization(block, ball, paddle, score, hp, title, mute, unmute);
 
-	sound::SetSound(menuSound, menuSoundID);
+	sound::SetSound(globals::menuSound, globals::menuSoundID);
 
 	while (!WindowClosed())
 	{
@@ -28,7 +28,7 @@ void MainLoop()
 		{
 		case State::Menu:
 
-			menu::Update(state);
+			//menu::Update(state);
 
 			if (slGetKey('P'))
 			{
@@ -95,12 +95,12 @@ void MainLoop()
 
 }
 
-void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute)
+void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute)
 {
-	Color colors[maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE };
-	int scores[maxRows] = { 350, 300, 250, 200, 150, 100, 50 };
+	Color colors[globals::maxRows] = { RED, ORANGE, YELLOW, GREEN, SKYBLUE, BLUE, PURPLE };
+	int scores[globals::maxRows] = { 350, 300, 250, 200, 150, 100, 50 };
 
-	InitializeWindow(screenWidth, screenHeight, "Breakout");
+	InitializeWindow(globals::screenWidth, globals::screenHeight, "Breakout");
 
 	InitAudioDevice();
 
@@ -110,50 +110,50 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	hp.text = "Hp: ";
 	title.text = "Breakout!";
 
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		background = "res/Background_Raylib.png";
+		globals::background = "res/Background_Raylib.png";
 
-		tempTexture = LoadTexture(background.c_str());
-		backgroundTextureID = tempTexture.id;
+		tempTexture = LoadTexture(globals::background.c_str());
+		globals::backgroundTextureID = tempTexture.id;
 
-		tempTexture = LoadTexture(blockNormalTexture.c_str());
-		blockNormalTextureID = tempTexture.id;
-		paddleTextureID = tempTexture.id;
+		tempTexture = LoadTexture(globals::blockNormalTexture.c_str());
+		globals::blockNormalTextureID = tempTexture.id;
+		globals::paddleTextureID = tempTexture.id;
 
-		tempTexture = LoadTexture(ballNormalTexture.c_str());
-		ballNormalTextureID = tempTexture.id;
+		tempTexture = LoadTexture(globals::ballNormalTexture.c_str());
+		globals::ballNormalTextureID = tempTexture.id;
 
-		tempTexture = LoadTexture(menuTexture.c_str());
-		menuTextureID = tempTexture.id;
+		tempTexture = LoadTexture(globals::menuTexture.c_str());
+		globals::menuTextureID = tempTexture.id;
 
-		tempTexture = LoadTexture(unmutedIcon.c_str());
-		unmutedIconID = tempTexture.id;
+		tempTexture = LoadTexture(globals::unmutedIcon.c_str());
+		globals::unmutedIconID = tempTexture.id;
 
-		tempTexture = LoadTexture(mutedIcon.c_str());
-		mutedIconID = tempTexture.id;
+		tempTexture = LoadTexture(globals::mutedIcon.c_str());
+		globals::mutedIconID = tempTexture.id;
 
-		menuSound = LoadSound(menuSong.c_str());
+		globals::menuSound = LoadSound(globals::menuSong.c_str());
 
-		collisionEffectSound = LoadSound(collisionEffect.c_str());
+		globals::collisionEffectSound = LoadSound(globals::collisionEffect.c_str());
+	
+		globals::playingSound = LoadSound(globals::playingSong.c_str());
+		
+		globals::collisionWithPaddleSound = LoadSound(globals::collisionWithPaddle.c_str());
 
-		playingSound = LoadSound(playingSong.c_str());
-
-		collisionWithPaddleSound = LoadSound(collisionWithPaddle.c_str());
-
-		score.font = LoadFont(fontText.c_str());
+		score.font = LoadFont(globals::fontText.c_str());
 
 		score.posX = 80;
 		score.posY = 4;
 
-		hp.font = LoadFont(fontText.c_str());
+		hp.font = LoadFont(globals::fontText.c_str());
 
 		hp.posX = 4;
 		hp.posY = 4;
 
 		title.fonstSize = 40;
 
-		title.font = LoadFont(fontText.c_str());
+		title.font = LoadFont(globals::fontText.c_str());
 
 		title.posX = 50;
 		title.posY = 10;
@@ -166,21 +166,21 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	}
 	else
 	{
-		backgroundTextureID = slLoadTexture(background.c_str());
+		globals::backgroundTextureID = slLoadTexture(globals::background.c_str());
 
-		blockNormalTextureID = slLoadTexture(blockNormalTexture.c_str());
+		globals::blockNormalTextureID = slLoadTexture(globals::blockNormalTexture.c_str());
 
-		ballNormalTextureID = slLoadTexture(ballNormalTexture.c_str());
+		globals::ballNormalTextureID = slLoadTexture(globals::ballNormalTexture.c_str());
 
-		paddleTextureID = slLoadTexture(blockNormalTexture.c_str());
+		globals::paddleTextureID = slLoadTexture(globals::blockNormalTexture.c_str());
 
-		menuTextureID = slLoadTexture(menuTexture.c_str());
+		globals::menuTextureID = slLoadTexture(globals::menuTexture.c_str());
 
-		unmutedIconID = slLoadTexture(unmutedIcon.c_str());
+		globals::unmutedIconID = slLoadTexture(globals::unmutedIcon.c_str());
 
-		mutedIconID = slLoadTexture(mutedIcon.c_str());
+		globals::mutedIconID = slLoadTexture(globals::mutedIcon.c_str());
 
-		font = slLoadFont(fontText.c_str());
+		globals::font = slLoadFont(globals::fontText.c_str());
 
 		title.fonstSize = 40;
 
@@ -199,29 +199,29 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 		unmute.posX = 95;
 		unmute.posY = 4;
 
-		menuSoundID = slLoadWAV(menuSong.c_str());
+		globals::menuSoundID = slLoadWAV(globals::menuSong.c_str());
 
-		playingSongID = slLoadWAV(playingSong.c_str());
+		globals::playingSongID = slLoadWAV(globals::playingSong.c_str());
 
-		collisionEffectID = slLoadWAV(collisionEffect.c_str());
+		globals::collisionEffectID = slLoadWAV(globals::collisionEffect.c_str());
 
-		collisionWithPaddleID = slLoadWAV(collisionWithPaddle.c_str());
+		globals::collisionWithPaddleID = slLoadWAV(globals::collisionWithPaddle.c_str());
 	}
 
-	ball.currentTextureID = ballNormalTextureID;
-	paddle.currentTextureID = paddleTextureID;
-	unmute.currentTextureID = unmutedIconID;
-	mute.currentTextureID = mutedIconID;
+	ball.currentTextureID = globals::ballNormalTextureID;
+	paddle.currentTextureID = globals::paddleTextureID;
+	unmute.currentTextureID = globals::unmutedIconID;
+	mute.currentTextureID = globals::mutedIconID;
 
-	for (int col = 0; col < maxCols; col++)
+	for (int col = 0; col < globals::maxCols; col++)
 	{
 		int counterInCol = 0;
-		for (int row = 0; row < maxRows; row++)
+		for (int row = 0; row < globals::maxRows; row++)
 		{
-			block[row][col].width = 100.0f * ((float)screenWidth / ((float)maxCols + 1.0f)) / (float)screenWidth;
+			block[row][col].width = 100.0f * ((float)globals::screenWidth / ((float)globals::maxCols + 1.0f)) / (float)globals::screenWidth;
 
-			block[row][col].posX = 49.5f + 50.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
-			block[row][col].posX += (col - ((float)maxCols / 2)) * 90.0f * ((float)screenWidth / ((float)maxCols)) / (float)screenWidth;
+			block[row][col].posX = 49.5f + 50.0f * ((float)globals::screenWidth / ((float)globals::maxCols)) / (float)globals::screenWidth;
+			block[row][col].posX += (col - ((float)globals::maxCols / 2)) * 90.0f * ((float)globals::screenWidth / ((float)globals::maxCols)) / (float)globals::screenWidth;
 
 			block[row][col].posY = row * block[row][col].height * 3 + 5 * block[row][col].height;
 
@@ -229,7 +229,7 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 
 			block[row][col].score = scores[row];
 
-			if (counterInCol < maxPowerUpsPerCol)
+			if (counterInCol < globals::maxPowerUpsPerCol)
 			{
 				block[row][col].block.powerUpType = block::DecidePowerUpType(block[row][col].block.counterInCol);
 				block::ApplyPowerUpToBlock(block[row][col]);
@@ -240,55 +240,55 @@ void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 				counterInCol++;
 			}
 
-			block[row][col].currentTextureID = blockNormalTextureID;
+			block[row][col].currentTextureID = globals::blockNormalTextureID;
 		}
 	}
 }
 
 void DrawBackground()
 {
-	DrawSprite(backgroundTextureID, 50, 50, 100, 100, WHITE);
+	draw::DrawSprite(globals::backgroundTextureID, 50, 50, 100, 100, WHITE);
 }
 
 void UpdateDeltaTime()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		deltaT = GetFrameTime();
+		globals::deltaT = GetFrameTime();
 	}
 	else
 	{
-		deltaT = slGetDeltaTime();
+		globals::deltaT = slGetDeltaTime();
 	}
 }
 
 int ScreenWidth()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		return GetScreenWidth();
 	}
 	else
 	{
-		return screenWidth;
+		return globals::screenWidth;
 	}
 }
 
 int ScreenHeight()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		return GetScreenHeight();
 	}
 	else
 	{
-		return screenHeight;
+		return globals::screenHeight;
 	}
 }
 
 void InitializeWindow(int screenWidth, int screenHeight, std::string title)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		InitWindow(screenWidth, screenHeight, title.c_str());
 
@@ -301,7 +301,7 @@ void InitializeWindow(int screenWidth, int screenHeight, std::string title)
 
 bool WindowClosed()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		if (WindowShouldClose())
 		{
@@ -320,7 +320,7 @@ bool WindowClosed()
 
 void EndWindow()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		CloseWindow();
 	}
@@ -332,7 +332,7 @@ void EndWindow()
 
 void StartDrawing()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		BeginDrawing();
 
@@ -346,7 +346,7 @@ void StartDrawing()
 
 void FinishDrawing()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		EndDrawing();
 	}
@@ -356,13 +356,13 @@ void FinishDrawing()
 	}
 }
 
-void game::Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+void game::Initialization(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 	text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute)
 {
 	Initializers(block, ball, paddle, score, hp, title, mute, unmute);
 }
 
-void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, buttons::Button& mute, buttons::Button& unmute)
+void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, buttons::Button& mute, buttons::Button& unmute)
 {
 	sound::PauseUnpauseSong(mute);
 
@@ -371,8 +371,8 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	paddle::Movement(paddle);
 	ball::ShootBall(ball, paddle);
 
-	screenWidth = ScreenWidth();
-	screenHeight = ScreenHeight();
+	globals::screenWidth = ScreenWidth();
+	globals::screenHeight = ScreenHeight();
 
 	ball::Movement(ball);
 
@@ -380,20 +380,20 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	{
 		if (!ball.idle)
 		{
-			sound::SetSound(collisionWithPaddleSound, collisionWithPaddleID);
+			sound::SetSound(globals::collisionWithPaddleSound, globals::collisionWithPaddleID);
 		}
 		ball::CollidedPaddle(paddle, ball);
 	}
 
-	for (int row = 0; row < maxRows; row++)
+	for (int row = 0; row < globals::maxRows; row++)
 	{
-		for (int col = 0; col < maxCols; col++)
+		for (int col = 0; col < globals::maxCols; col++)
 		{
 			if (block[row][col].durability > 0)
 			{
 				if (CheckCollisions(block[row][col], ball))
 				{
-					sound::SetSound(collisionEffectSound, collisionEffectID);
+					sound::SetSound(globals::collisionEffectSound, globals::collisionEffectID);
 					UpdateDurability(block[row][col]);
 					UpdateMovement(ball, block[row][col]);
 
@@ -411,28 +411,28 @@ void game::Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle
 	score.text = "Score: " + std::to_string(paddle.score);
 }
 
-void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle,
+void game::Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 	text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute)
 {
 	DrawBackground();
 
 	if (mute.isMuted)
 	{
-		DrawButtons(mute);
+		draw::DrawButtons(mute);
 	}
 	else
 	{
-		DrawButtons(unmute);
+		draw::DrawButtons(unmute);
 	}
 
-	DrawText(score);
-	DrawText(hp);
+	draw::DrawText(score);
+	draw::DrawText(hp);
 
 	LivesDraw(paddle, hp);
 
-	for (int row = 0; row < maxRows; row++)
+	for (int row = 0; row < globals::maxRows; row++)
 	{
-		for (int col = 0; col < maxCols; col++)
+		for (int col = 0; col < globals::maxCols; col++)
 		{
 			if (block[row][col].durability > 0)
 			{
@@ -447,7 +447,7 @@ void game::Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::
 
 void sound::SetSound(Sound sound, int soundID)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		SetSoundVolume(sound, 0.5f);
 		PlaySound(sound);
@@ -460,59 +460,59 @@ void sound::SetSound(Sound sound, int soundID)
 
 void sound::SetPlayingSound()
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		StopSound(menuSound);
+		StopSound(globals::menuSound);
 
-		PlaySound(playingSound);
+		PlaySound(globals::playingSound);
 	}
 	else
 	{
-		slSoundStop(menuSoundID);
+		slSoundStop(globals::menuSoundID);
 
-		slSoundLoop(playingSongID);
+		slSoundLoop(globals::playingSongID);
 	}
 }
 
 void sound::PauseUnpauseSong(buttons::Button& mute)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		if (IsKeyPressed('M') && !mute.isMuted)
 		{
 			mute.isMuted = true;
-			PauseSound(playingSound);
+			PauseSound(globals::playingSound);
 		}
 		else if (IsKeyPressed('M') && mute.isMuted)
 		{
 			mute.isMuted = false;
-			ResumeSound(playingSound);
+			ResumeSound(globals::playingSound);
 		}
 	}
 	else
 	{
-		muteButtonWasPressed = false;
+		globals::muteButtonWasPressed = false;
 
 		if (slGetKey('M'))
 		{
-			if (!muteButtonIsPressed)
+			if (!globals::muteButtonIsPressed)
 			{
-				muteButtonWasPressed = true;
+				globals::muteButtonWasPressed = true;
 			}
-			muteButtonIsPressed = true;
+			globals::muteButtonIsPressed = true;
 		}
 		else
 		{
-			muteButtonIsPressed = false;
+			globals::muteButtonIsPressed = false;
 		}
 
-		if (muteButtonWasPressed)
+		if (globals::muteButtonWasPressed)
 		{
 			mute.isMuted = !mute.isMuted;
 
 			if (mute.isMuted)
 			{
-				slSoundPause(playingSongID);
+				slSoundPause(globals::playingSongID);
 			}
 			else
 			{

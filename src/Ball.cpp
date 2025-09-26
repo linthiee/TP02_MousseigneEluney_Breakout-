@@ -2,8 +2,8 @@
 
 void ball::Draw(Ball ball)
 {
-	DrawCirc(ball.posX, ball.posY, ball.radius, BLACK);
-	DrawSprite(ball.currentTextureID, ball.posX, ball.posY, (ball.radius), 16.0f * (ball.radius) / 9.0f, ball.color);
+	draw::DrawCirc(ball.posX, ball.posY, ball.radius, BLACK);
+	draw::DrawSprite(ball.currentTextureID, ball.posX, ball.posY, (ball.radius), 16.0f * (ball.radius) / 9.0f, ball.color);
 }
 
 void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
@@ -19,23 +19,23 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 	ball.posX = paddle.posX;
 	ball.posY = paddle.posY - (paddle.height / 2) - ball.radius;
 
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		switch (paddle.keyUp)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			upKey = (int)KeyboardKey::KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			upKey = (int)KeyboardKey::KEY_RIGHT;
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			upKey = (int)(KeyboardKey::KEY_UP);
 
@@ -52,19 +52,19 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 	{
 		switch (paddle.keyUp)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			upKey = SL_KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			upKey = SL_KEY_RIGHT;
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			upKey = SL_KEY_UP;
 
@@ -83,12 +83,12 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 		ball.velocityY = -1;
 		ball.velocityX = 1;
 
-		float direction = rand() % ((maxDirecBall - minDirecBall + 1) + minDirecBall);
+		float direction = rand() % ((globals::maxDirecBall - globals::minDirecBall + 1) + globals::minDirecBall);
 
-		direction -= maxDirecBall / 2;
+		direction -= globals::maxDirecBall / 2;
 
 		ball.velocityX = direction / 10.0f;
-		Normalize(ball.velocityX, ball.velocityY);
+		utils::Normalize(ball.velocityX, ball.velocityY);
 
 		ball.firstShoot = false;
 		ball.idle = false;
@@ -99,10 +99,10 @@ void ball::Movement(Ball& ball)
 {
 	if (!ball.idle)
 	{
-		Normalize(ball.velocityX, ball.velocityY);
+		utils::Normalize(ball.velocityX, ball.velocityY);
 
-		ball.posX += ball.velocityX * ball.speed * deltaT;
-		ball.posY += ball.velocityY * ball.speed * deltaT;
+		ball.posX += ball.velocityX * ball.speed * globals::deltaT;
+		ball.posY += ball.velocityY * ball.speed * globals::deltaT;
 
 		if (ball.posX + ball.radius > 100)
 		{
@@ -189,8 +189,7 @@ void ball::CollidedPaddle(paddle::Paddle& paddle, Ball& ball)
 	}
 
 	ball.velocityX = (ball.posX - paddle.posX) / (paddle.width / 2);
-	Normalize(ball.velocityX, ball.velocityY);
-
+	utils::Normalize(ball.velocityX, ball.velocityY);
 }
 
 void ball::UpdateMovement(Ball& ball, block::Block block)

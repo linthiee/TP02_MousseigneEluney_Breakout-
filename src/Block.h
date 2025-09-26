@@ -15,11 +15,13 @@ namespace powerup
 		PowerUpType powerUpType;
 
 		bool isActive = false;
-		
+
 		int counterInCol = 0;
-		
+
 		float timer = 10.0f;
 	};
+
+
 }
 
 namespace block
@@ -51,5 +53,4 @@ namespace block
 	void UpdateDurability(Block& block);
 
 	void Draw(Block block);
-
 }

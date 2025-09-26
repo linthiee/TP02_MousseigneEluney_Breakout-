@@ -20,9 +20,9 @@ namespace paddle
 
 		int currentTextureID = 0;
 
-		Key keyLeft = Key::LEFT_KEY;
-		Key keyRight = Key::RIGHT_KEY;
-		Key keyUp = Key::UP_KEY;
+		globals::Key keyLeft = globals::Key::LEFT_KEY;
+		globals::Key keyRight = globals::Key::RIGHT_KEY;
+		globals::Key keyUp = globals::Key::UP_KEY;
 
 		int score = 0;
 

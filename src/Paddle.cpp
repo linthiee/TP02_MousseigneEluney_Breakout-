@@ -2,7 +2,7 @@
 
 void paddle::Draw(Paddle paddle)
 {
-	DrawSprite(paddle.currentTextureID, paddle.posX, paddle.posY, paddle.width, paddle.height, paddle.color);
+	draw::DrawSprite(paddle.currentTextureID, paddle.posX, paddle.posY, paddle.width, paddle.height, paddle.color);
 }
 
 void paddle::Movement(Paddle& paddle)
@@ -10,23 +10,23 @@ void paddle::Movement(Paddle& paddle)
 	int leftKey = 0;
 	int rightKey = 0;
 
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		switch (paddle.keyLeft)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			leftKey = (int)KeyboardKey::KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			leftKey = (int)KeyboardKey::KEY_RIGHT;
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			leftKey = (int)(KeyboardKey::KEY_UP);
 
@@ -37,24 +37,24 @@ void paddle::Movement(Paddle& paddle)
 
 		if (IsKeyDown(leftKey))
 		{
-			paddle.posX -= paddle.speed * deltaT;
+			paddle.posX -= paddle.speed * globals::deltaT;
 		}
 
 		switch (paddle.keyRight)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			rightKey = (int)KeyboardKey::KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			rightKey = (int)(KeyboardKey::KEY_RIGHT);
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			rightKey = (int)(KeyboardKey::KEY_UP);
 
@@ -65,26 +65,26 @@ void paddle::Movement(Paddle& paddle)
 
 		if (IsKeyDown(rightKey))
 		{
-			paddle.posX += paddle.speed * deltaT;
+			paddle.posX += paddle.speed * globals::deltaT;
 		}
 	}
 	else
 	{
 		switch (paddle.keyLeft)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			leftKey = SL_KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			leftKey = SL_KEY_RIGHT;
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			leftKey = SL_KEY_UP;
 
@@ -95,24 +95,24 @@ void paddle::Movement(Paddle& paddle)
 
 		if (slGetKey(leftKey))
 		{
-			paddle.posX -= paddle.speed * deltaT;
+			paddle.posX -= paddle.speed * globals::deltaT;
 		}
 
 		switch (paddle.keyRight)
 		{
-		case Key::NONE_KEY:
+		case globals::Key::NONE_KEY:
 			break;
-		case Key::LEFT_KEY:
+		case globals::Key::LEFT_KEY:
 
 			rightKey = SL_KEY_LEFT;
 
 			break;
-		case Key::RIGHT_KEY:
+		case globals::Key::RIGHT_KEY:
 
 			rightKey = SL_KEY_RIGHT;
 
 			break;
-		case Key::UP_KEY:
+		case globals::Key::UP_KEY:
 
 			rightKey = SL_KEY_UP;
 
@@ -123,7 +123,7 @@ void paddle::Movement(Paddle& paddle)
 
 		if (slGetKey(rightKey))
 		{
-			paddle.posX += paddle.speed * deltaT;
+			paddle.posX += paddle.speed * globals::deltaT;
 		}
 	}
 
@@ -144,13 +144,13 @@ void paddle::LivesDraw(Paddle& paddle, text::Text hp)
 
 	for (int i = 0; i < paddle.lives; i++)
 	{
-		if (usingRaylib)
+		if (globals::usingRaylib)
 		{
-			DrawCirc(hp.posX * 2 + i * 2, radius * 4.0f, radius, WHITE);
+			draw::DrawCirc(hp.posX * 2 + i * 2, radius * 4.0f, radius, WHITE);
 		}
 		else
 		{
-			DrawCirc(hp.posX * 2 + i * 2, radius * 3.0f, radius, WHITE);
+			draw::DrawCirc(hp.posX * 2 + i * 2, radius * 3.0f, radius, WHITE);
 		}
 	}
 }

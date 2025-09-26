@@ -1,10 +1,5 @@
 #pragma once
 
-enum class State
-{
-	Menu, Play, Credits, Pause, EndScreen, Exit
-};
-
 #include <string>
 #include "Draw.h"
 #include "Globals.h"
@@ -14,9 +9,14 @@ enum class State
 #include "Utils.h"
 #include "Menu.h"
 
+enum class State
+{
+	Menu, Play, Credits, Pause, EndScreen, Exit
+};
+
 void MainLoop();
 
-void Initializers(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 	text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute);
 
 void DrawBackground();
@@ -36,11 +36,11 @@ void FinishDrawing();
 
 namespace game
 {
-	void Initialization(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+	void Initialization(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 		text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute);
-	void Update(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle,
+	void Update(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text& score, buttons::Button& mute, buttons::Button& unmute);
-	void Draw(block::Block block[maxRows][maxCols], ball::Ball& ball, paddle::Paddle& paddle,
+	void Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute);
 }
 

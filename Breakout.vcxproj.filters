@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ball.cpp">
+      <Filter>Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Block.cpp">
+      <Filter>Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Paddle.cpp">
+      <Filter>Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Draw.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StateManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Globals.h">
+      <Filter>Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ball.h">
+      <Filter>Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block.h">
+      <Filter>Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Paddle.h">
+      <Filter>Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu.h">
+      <Filter>Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Draw.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StateManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Globals">
+      <UniqueIdentifier>{a926b242-d738-4d0a-ad1b-c0a8b67dd196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Elements">
+      <UniqueIdentifier>{3ec0f30f-e2e0-4517-a008-3af152306276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{ee63dccd-cc21-4302-9e50-eb71d7f8dc06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{3dc8a136-a5c7-407e-8042-b487a5c70582}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

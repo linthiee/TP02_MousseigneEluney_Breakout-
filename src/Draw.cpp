@@ -1,16 +1,16 @@
 #include "Draw.h"
 
-void DrawSprite(float id, float posX, float posY, float width, float height, Color color)
+void draw::DrawSprite(float id, float posX, float posY, float width, float height, Color color)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
 		Texture texture;
 
 		texture.id = id;
-		texture.width = (width * screenWidth / 100.0f);
-		texture.height = (height * screenHeight / 100.0f);
+		texture.width = (width * globals::screenWidth / 100.0f);
+		texture.height = (height * globals::screenHeight / 100.0f);
 
-		DrawTexture(texture, (posX * screenWidth / 100.0f) - ((width / 2) * screenWidth / 100.0f), (posY * screenHeight / 100.0f) - ((height / 2) * screenHeight / 100.0f), color);
+		DrawTexture(texture, (posX * globals::screenWidth / 100.0f) - ((width / 2) * globals::screenWidth / 100.0f), (posY * globals::screenHeight / 100.0f) - ((height / 2) * globals::screenHeight / 100.0f), color);
 	}
 	else
 	{
@@ -20,15 +20,15 @@ void DrawSprite(float id, float posX, float posY, float width, float height, Col
 		double a = (double)color.a / 220;
 
 		slSetForeColor(r, g, b, a);
-		slSprite(id, (posX * screenWidth / 100.0f), screenHeight - (posY * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f));
+		slSprite(id, (posX * globals::screenWidth / 100.0f), globals::screenHeight - (posY * globals::screenHeight / 100.0f), (width * globals::screenWidth / 100.0f), (height * globals::screenHeight / 100.0f));
 	}
 }
 
-void DrawRec(float posX, float posY, float width, float height, Color color)
+void draw::DrawRec(float posX, float posY, float width, float height, Color color)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		DrawRectangle((posX * screenWidth / 100.0f) - ((width / 2) * screenWidth / 100.0f), (posY * screenHeight / 100.0f) - ((height / 2) * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f), color);
+		DrawRectangle((posX * globals::screenWidth / 100.0f) - ((width / 2) * globals::screenWidth / 100.0f), (posY * globals::screenHeight / 100.0f) - ((height / 2) * globals::screenHeight / 100.0f), (width * globals::screenWidth / 100.0f), (height * globals::screenHeight / 100.0f), color);
 	}
 	else
 	{
@@ -38,15 +38,15 @@ void DrawRec(float posX, float posY, float width, float height, Color color)
 		double a = (double)color.a / 255;
 
 		slSetForeColor(r, g, b, a);
-		slRectangleFill((posX * screenWidth / 100.0f), screenHeight - (posY * screenHeight / 100.0f), (width * screenWidth / 100.0f), (height * screenHeight / 100.0f));
+		slRectangleFill((posX * globals::screenWidth / 100.0f), globals::screenHeight - (posY * globals::screenHeight / 100.0f), (width * globals::screenWidth / 100.0f), (height * globals::screenHeight / 100.0f));
 	}
 }
 
-void DrawCirc(float posX, float posY, float radius, Color color)
+void draw::DrawCirc(float posX, float posY, float radius, Color color)
 {
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		DrawCircle((posX * screenWidth / 100.0f), (posY * screenHeight / 100.0f), (radius * screenHeight / 100.0f), color);
+		DrawCircle((posX * globals::screenWidth / 100.0f), (posY * globals::screenHeight / 100.0f), (radius * globals::screenHeight / 100.0f), color);
 	}
 	else
 	{
@@ -56,25 +56,24 @@ void DrawCirc(float posX, float posY, float radius, Color color)
 		double a = (double)color.a / 255;
 
 		slSetForeColor(r, g, b, a);
-		slCircleFill((posX * screenWidth / 100.0f), screenHeight - (posY * screenHeight / 100.0f), (radius * screenHeight / 100.0f), (double)radius * 200);
+		slCircleFill((posX * globals::screenWidth / 100.0f), globals::screenHeight - (posY * globals::screenHeight / 100.0f), (radius * globals::screenHeight / 100.0f), (double)radius * 200);
 	}
 }
 
-void DrawText(text::Text text)
+void draw::DrawText(text::Text text)
 {
-
-	if (usingRaylib)
+	if (globals::usingRaylib)
 	{
-		DrawTextEx(text.font, text.text.c_str(), { (text.posX * screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2, (text.posY * screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
+		DrawTextEx(text.font, text.text.c_str(), { (text.posX * globals::screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2, (text.posY * globals::screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
 	}
 	else
 	{
-		slSetFont(font, (int)text.fonstSize);
-		slText((text.posX * screenWidth / 100.0f) - slGetTextWidth(text.text.c_str()) / 2, screenHeight - (text.posY * screenHeight / 100.0f), text.text.c_str());
+		slSetFont(globals::font, (int)text.fonstSize);
+		slText((text.posX * globals::screenWidth / 100.0f) - slGetTextWidth(text.text.c_str()) / 2, globals::screenHeight - (text.posY * globals::screenHeight / 100.0f), text.text.c_str());
 	}
 }
 
-void DrawButtons(buttons::Button icon)
+void draw::DrawButtons(buttons::Button icon)
 {
-	DrawSprite(icon.currentTextureID, icon.posX, icon.posY, icon.width, icon.height, icon.color);
+	draw::DrawSprite(icon.currentTextureID, icon.posX, icon.posY, icon.width, icon.height, icon.color);
 }

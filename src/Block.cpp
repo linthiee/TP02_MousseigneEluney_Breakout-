@@ -2,26 +2,26 @@
 
 powerup::PowerUpType block::DecidePowerUpType(int counterInCol)
 {
-	if (counterInCol >= maxPowerUpsPerCol)
+	if (counterInCol >= globals::maxPowerUpsPerCol)
 	{
 		return powerup::PowerUpType::None;
 	}
 
-	int probability = rand() % (probRange + minProb);
+	int probability = rand() % (globals::probRange + globals::minProb);
 
-	if (probability <= shootBallProb)
+	if (probability <= globals::shootBallProb)
 	{
 		return powerup::PowerUpType::ShootBall;
 	}
-	if (probability <= extraPaddlesProb)
+	if (probability <= globals::extraPaddlesProb)
 	{
 		return powerup::PowerUpType::ExtraPaddles;
 	}
-	if (probability <= doubleDmgProb)
+	if (probability <= globals::doubleDmgProb)
 	{
 		return powerup::PowerUpType::DoubleDamage;
 	}
-	if (probability <= extraBallProb)
+	if (probability <= globals::extraBallProb)
 	{
 		return powerup::PowerUpType::ExtraBall;
 	}
@@ -34,13 +34,13 @@ void block::ApplyPowerUpToBlock(Block& block)
 	switch (block.block.powerUpType)
 	{
 	case powerup::PowerUpType::ExtraBall:
-		block.color = PINK; 
+		block.color = BLACK;
 		break;
 	case powerup::PowerUpType::ExtraPaddles: 
-		block.color = WHITE;
+		block.color = BLACK;
 		break;
 	case powerup::PowerUpType::DoubleDamage: 
-		block.color = BLUE;
+		block.color = BLACK;
 		break;
 	case powerup::PowerUpType::ShootBall:
 		block.color = BLACK;
@@ -52,7 +52,7 @@ void block::ApplyPowerUpToBlock(Block& block)
 
 void block::Draw(Block block)
 {
-	DrawSprite(block.currentTextureID, block.posX, block.posY, block.width, block.height, block.color);
+	draw::DrawSprite(block.currentTextureID, block.posX, block.posY, block.width, block.height, block.color);
 }
 
 void block::UpdateDurability(Block& block)

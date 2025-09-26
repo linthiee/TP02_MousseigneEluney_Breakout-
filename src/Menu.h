@@ -3,6 +3,6 @@
 
 namespace menu
 {
-	void Update(State& state);
+	//void Update(State& state);
 	void Draw(text::Text title);
 }

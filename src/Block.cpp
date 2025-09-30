@@ -19,33 +19,29 @@ powerup::PowerUpType block::DecidePowerUpType(int counterInCol)
 	}
 	if (probability <= globals::doubleDmgProb)
 	{
-		return powerup::PowerUpType::DoubleDamage;
-	}
-	if (probability <= globals::extraBallProb)
-	{
-		return powerup::PowerUpType::ExtraBall;
+		return powerup::PowerUpType::TripleDamage;
 	}
 
 	return powerup::PowerUpType::None;
 }
 
-powerup::PowerUpType block::PowerUpActivaded(Block& block)
+powerup::PowerUpType block::PowerUpActivaded(paddle::Paddle extraPaddles[globals::extraPaddlesMax], Block& block)
 {
 	switch (block.block.powerUpType)
 	{
-	case powerup::PowerUpType::ExtraBall:
-
-		return powerup::PowerUpType::ExtraBall;
-
-		break;
 	case powerup::PowerUpType::ExtraPaddles:
 		
+		for (int i = 0; i < globals::extraPaddlesMax; i++)
+		{
+			extraPaddles[i].isActive = true;
+		}
+
 		return powerup::PowerUpType::ExtraPaddles;
 
 		break;
-	case powerup::PowerUpType::DoubleDamage:
+	case powerup::PowerUpType::TripleDamage:
 
-		return powerup::PowerUpType::DoubleDamage;
+		return powerup::PowerUpType::TripleDamage;
 
 		break;
 	case powerup::PowerUpType::ShootBall:
@@ -71,24 +67,19 @@ void block::ApplyPowerUpToBlock(Block& block)
 {
 	switch (block.block.powerUpType)
 	{
-	case powerup::PowerUpType::ExtraBall:
-
-		block.color = BLACK;
-
-		break;
 	case powerup::PowerUpType::ExtraPaddles: 
 
-		block.color = BLACK;
+		block.currentTextureID = globals::extraPaddleBrickTextureID;
 
 		break;
-	case powerup::PowerUpType::DoubleDamage: 
+	case powerup::PowerUpType::TripleDamage: 
 
-		block.color = BLACK;
+		block.currentTextureID = globals::tripleDamageBrickTextureID;
 
 		break;
 	case powerup::PowerUpType::ShootBall:
 
-		block.color = BLACK;
+		block.currentTextureID = globals::shootBallBrickTextureID;
 
 		break;
 	case powerup::PowerUpType::None:    
@@ -96,19 +87,22 @@ void block::ApplyPowerUpToBlock(Block& block)
 	}
 }
 
+bool block::WinCondition(Block block[globals::maxRows][globals::maxCols])
+{
+	for (int row = 0; row < globals::maxRows; row++)
+	{
+		for (int col = 0; col < globals::maxCols; col++)
+		{
+			if (block[row][col].durability > 0)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void block::Draw(Block block)
 {
 	draw::DrawSprite(block.currentTextureID, block.posX, block.posY, block.width, block.height, block.color);
-}
-
-void block::UpdateDurability(Block& block)
-{
-	block.color.r /= 1.25f;
-	block.color.g /= 1.25f;
-	block.color.b /= 1.25f;
-
-	if (block.durability > 0)
-	{
-		block.durability--;
-	}
 }

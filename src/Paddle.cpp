@@ -155,35 +155,7 @@ void paddle::LivesDraw(Paddle& paddle, text::Text hp)
 	}
 }
 
-void paddle::ApplyPowerUp(Paddle& paddle)
+bool paddle::LoseCon(Paddle paddle)
 {
-	switch (paddle.powerUpType)
-	{
-	case powerup::PowerUpType::ExtraBall:
-
-		paddle.speed = 100.0f;
-
-		break;
-	case powerup::PowerUpType::ExtraPaddles:
-
-		paddle.speed = 100.0f;
-
-		break;
-	case powerup::PowerUpType::DoubleDamage:
-
-		paddle.speed = 100.0f;
-
-		break;
-	case powerup::PowerUpType::ShootBall:
-
-		paddle.speed = 100.0f;
-
-		break;
-	case powerup::PowerUpType::None:
-
-		break;
-	default:
-
-		break;
-	}
+	return (paddle.lives <= 0);
 }

@@ -2,27 +2,9 @@
 #include <string>
 #include "Raylib.h"
 #include "Globals.h"
+#include "PowerUps.h"
+#include "Paddle.h"
 #include "Draw.h"
-
-namespace powerup
-{
-	enum class PowerUpType
-	{
-		None, ExtraBall, DoubleDamage, ExtraPaddles, ShootBall
-	};
-
-	struct PowerUp
-	{
-		PowerUpType powerUpType;
-
-		bool isActive = false;
-
-		int counterInCol = 0;
-
-		float timer = 10.0f;
-	};
-
-}
 
 namespace block
 {
@@ -43,16 +25,15 @@ namespace block
 		int currentTextureID = 0;
 
 		int score = 0;
-
 	};
 
 	powerup::PowerUpType DecidePowerUpType(int counterInCol);
 
-	powerup::PowerUpType PowerUpActivaded(Block& block);
+	powerup::PowerUpType PowerUpActivaded(paddle::Paddle extraPaddles[globals::extraPaddlesMax], Block& block);
 
 	void ApplyPowerUpToBlock(Block& block);
 
-	void UpdateDurability(Block& block);
+	bool WinCondition(Block block[globals::maxRows][globals::maxCols]);
 
 	void Draw(Block block);
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 #include "Raylib.h"
+#include "Text.h"
 
 namespace globals
 {
@@ -20,11 +21,26 @@ namespace globals
 	extern std::string blockNormalTexture;
 	extern int blockNormalTextureID;
 
+	extern std::string extraPaddleBrickTexture;
+	extern int extraPaddleBrickTextureID;
+
+	extern std::string tripleDamageBrickTexture;
+	extern int tripleDamageBrickTextureID;
+
+	extern std::string shootBallBrickTexture;
+	extern int shootBallBrickTextureID;
+
 	extern std::string ballNormalTexture;
 	extern int ballNormalTextureID;
 
 	extern std::string paddleTexture;
 	extern int paddleTextureID;
+
+	extern std::string pauseTexture;
+	extern int pauseTextureID;
+
+	extern std::string extraPaddlesTexture;
+	extern int extraPaddlesTextureID;
 
 	extern std::string mutedIcon;
 	extern int mutedIconID;
@@ -55,9 +71,17 @@ namespace globals
 	extern int font;
 	extern int fontSize;
 
+	extern text::Text defaultText;
+
 	extern float deltaT;
 
 	extern bool usingRaylib;
+
+	extern bool retry;
+
+	extern bool gamePaused;
+	extern bool gameHeldPaused;
+	extern bool gameWasPaused;
 
 	extern bool muteButtonIsPressed;
 	extern bool muteButtonWasPressed;
@@ -78,6 +102,8 @@ namespace globals
 	const int extraPaddlesProb = 30;
 	const int doubleDmgProb = 40;
 	const int extraBallProb = 50;
+
+	const int extraPaddlesMax = 3;
 
 	const int maxCols = 8;
 	const int maxRows = 7;

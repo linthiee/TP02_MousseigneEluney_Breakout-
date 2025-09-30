@@ -17,5 +17,7 @@ namespace text
 		Color color = WHITE;
 
 		Font font;
+
+		int fontID = 0;
 	};
 }

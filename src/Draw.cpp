@@ -68,6 +68,13 @@ void draw::DrawText(text::Text text)
 	}
 	else
 	{
+		double r = (double)text.color.r / 255;
+		double g = (double)text.color.g / 255;
+		double b = (double)text.color.b / 255;
+		double a = (double)text.color.a / 255;
+
+		slSetForeColor(r, g, b, a);
+
 		slSetFont(globals::font, (int)text.fonstSize);
 		slText((text.posX * globals::screenWidth / 100.0f) - slGetTextWidth(text.text.c_str()) / 2, globals::screenHeight - (text.posY * globals::screenHeight / 100.0f), text.text.c_str());
 	}

@@ -88,10 +88,18 @@ void ball::ShootBall(Ball& ball, paddle::Paddle& paddle)
 		direction -= globals::maxDirecBall / 2;
 
 		ball.velocityX = direction / 10.0f;
+
+		if (paddle.powerUpType == powerup::PowerUpType::ShootBall)
+		{
+			ball.velocityX = direction / 100.0f;
+			ball.velocityY = -1;
+		}
 		utils::Normalize(ball.velocityX, ball.velocityY);
 
 		ball.firstShoot = false;
 		ball.idle = false;
+
+		paddle.powerUpType = powerup::PowerUpType::None;
 	}
 }
 
@@ -174,8 +182,27 @@ bool ball::CheckCollisions(paddle::Paddle& paddle, ball::Ball ball)
 	return CheckCollisions(paddle.posX, paddle.posY, paddle.width, paddle.height, ball);
 }
 
+void ball::UpdateBlockDurability(block::Block& block, int damage)
+{
+	block.color.r /= 1.25f;
+	block.color.g /= 1.25f;
+	block.color.b /= 1.25f;
+
+	if (block.durability > 0)
+	{
+		block.durability -= damage;
+	}
+}
+
 void ball::CollidedPaddle(paddle::Paddle& paddle, Ball& ball)
 {
+	if (paddle.powerUpType == powerup::PowerUpType::ShootBall)
+	{
+		ball.firstShoot = true;
+		ball.idle = true;
+
+		return;
+	}
 
 	if (ball.posY < paddle.posY)
 	{
@@ -231,5 +258,56 @@ void ball::UpdateOnLivesLost(Ball& ball, paddle::Paddle& paddle)
 
 		ball.firstShoot = true;
 		ball.idle = true;
+	}
+}
+
+void ball::UpdatePowerUp(paddle::Paddle& paddle, paddle::Paddle extraPaddles[globals::extraPaddlesMax], Ball& ball)
+{
+	int paddlesActive = 0;
+
+	switch (paddle.powerUpType)
+	{
+	case powerup::PowerUpType::ExtraPaddles:
+
+		for (int i = 0; i < globals::extraPaddlesMax; i++)
+		{
+			if (CheckCollisions(extraPaddles[i], ball))
+			{
+				if (extraPaddles[i].isActive)
+				{
+					extraPaddles[i].isActive = false;
+					CollidedPaddle(extraPaddles[i], ball);
+				}
+			}
+		}
+
+		for (int i = 0; i < globals::extraPaddlesMax; i++)
+		{
+			if (extraPaddles[i].isActive)
+			{
+				paddlesActive++;
+			}
+		}
+
+		if (paddlesActive == 0)
+		{
+			paddle.powerUpType = powerup::PowerUpType::None;
+		}
+
+		break;
+	case powerup::PowerUpType::TripleDamage:
+
+		ball.damage = 3;
+
+		break;
+	case powerup::PowerUpType::ShootBall:
+
+		break;
+	case powerup::PowerUpType::None:
+
+		break;
+	default:
+
+		break;
 	}
 }

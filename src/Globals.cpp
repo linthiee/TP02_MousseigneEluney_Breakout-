@@ -2,7 +2,7 @@
 
 namespace globals
 {
-	std::string background = "res/Background_Image.png";
+	std::string background = "res/Background_Raylib.png";
 	int backgroundTextureID = 0;
 
 	std::string blockNormalTexture = "res/Brick_Texture_Default.png";
@@ -14,8 +14,23 @@ namespace globals
 	std::string paddleTexture = "res/Brick_Texture_Default.png";
 	int paddleTextureID = 0;
 
+	std::string extraPaddleBrickTexture = "res/ExtraPaddle_Texture.png";
+	int extraPaddleBrickTextureID = 0;
+
+	std::string tripleDamageBrickTexture = "res/TripleDamage_Texture.png";
+	int tripleDamageBrickTextureID = 0;
+
+	std::string shootBallBrickTexture = "res/StickBall_Texture.png";
+	int shootBallBrickTextureID = 0;
+
+	std::string extraPaddlesTexture = "res/Brick_Texture_Default.png";
+	int extraPaddlesTextureID = 0;
+
 	std::string menuTexture = "res/Background_Menu.png";
 	int menuTextureID = 0;
+
+	std::string pauseTexture = "res/Background_Paused.png";
+	int pauseTextureID = 0;
 
 	std::string mutedIcon = "res/Muted_Icon.png";
 	int mutedIconID = 0;
@@ -45,10 +60,18 @@ namespace globals
 
 	float deltaT = 0.0f;
 
+	text::Text defaultText;
+
 	bool muteButtonIsPressed = false;
 	bool muteButtonWasPressed = false;
 
 	bool usingRaylib = false;
+
+	bool retry = false;
+
+	bool gamePaused = false;
+	bool gameHeldPaused = false;
+	bool gameWasPaused = false;
 
 	int screenWidth = 825;
 	int screenHeight = 525;

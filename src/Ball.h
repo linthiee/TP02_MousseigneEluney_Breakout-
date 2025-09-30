@@ -26,6 +26,8 @@ namespace ball
 		Color color = WHITE;
 
 		int currentTextureID = 0;
+
+		int damage = 1;
 	};
 
 	void Draw(Ball ball);
@@ -36,10 +38,13 @@ namespace ball
 	bool CheckCollisions(block::Block& block, ball::Ball ball);
 	bool CheckCollisions(paddle::Paddle& paddle, ball::Ball ball);
 
+	void UpdateBlockDurability(block::Block& block, int damage);
+
 	void CollidedPaddle(paddle::Paddle& paddle, Ball& ball);
 
 	void UpdateMovement(Ball& ball, block::Block block);
 
 	void UpdateOnLivesLost(Ball& ball, paddle::Paddle& paddle);
 
+	void UpdatePowerUp(paddle::Paddle& paddle, paddle::Paddle extraPaddles[globals::extraPaddlesMax], Ball& ball);
 }

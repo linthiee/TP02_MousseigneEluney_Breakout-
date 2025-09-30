@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Raylib.h"
 #include "Globals.h"
-#include "Block.h"
+#include "PowerUps.h"
 #include "Draw.h"
 
 namespace paddle
@@ -30,11 +30,13 @@ namespace paddle
 		int score = 0;
 
 		int lives = 5;
+
+		bool isActive = false;
 	};
 
 	void Draw(Paddle paddle);
 	void Movement(Paddle& paddle);
 	void LivesDraw(Paddle& paddle, text::Text hp);
 
-	void ApplyPowerUp(Paddle& paddle);
+	bool LoseCon(Paddle paddle);
 }

@@ -6,7 +6,7 @@ namespace text
 {
 	struct Text
 	{
-		std::string text;
+		std::string text = "";
 
 		float posX = 0;
 		float posY = 0;
@@ -16,7 +16,7 @@ namespace text
 
 		Color color = WHITE;
 
-		Font font;
+		Font font = {};
 
 		int fontID = 0;
 	};

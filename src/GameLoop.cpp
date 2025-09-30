@@ -19,7 +19,7 @@ enum class State
 	Menu, Play, Credits, Pause, HowToPlay, EndScreen, Exit
 };
 
-void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+void Initializers(Texture& tempTexture, block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 	text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax]);
 
 void DrawBackground();
@@ -61,13 +61,13 @@ namespace howtoplay
 
 namespace game
 {
-	void Initialization(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+	void Initialization(Texture& tempTexture, block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 		text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax]);
 	void Update(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text& score, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax], State& state, Cursor& cursor);
 	void Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax]);
-	void Deinitialize();
+	void Deinitialize(Texture& tempTexture);
 }
 
 namespace sound
@@ -77,7 +77,7 @@ namespace sound
 	void PauseUnpauseSong(buttons::Button& mute);
 	void PauseSounds(Sound sound, int id);
 	void UnpauseSounds(Sound sound);
-	void PauseAll(Sound sound);
+	void PauseAll(Sound sound, int id);
 }
 
 namespace pause
@@ -103,7 +103,7 @@ namespace lost
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = true;
+	globals::usingRaylib = false;
 
 	Cursor cursor;
 
@@ -143,10 +143,12 @@ void MainLoop()
 	paddle::Paddle paddle;
 	paddle::Paddle extraPaddles[globals::extraPaddlesMax];
 
+	Texture tempTexture;
+
 	ball::Ball ball;
 	block::Block block[globals::maxRows][globals::maxCols];
 
-	game::Initialization(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
+	game::Initialization(tempTexture, block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
 
 	sound::SetSound(globals::menuSound, globals::menuSoundID);
 
@@ -166,12 +168,11 @@ void MainLoop()
 			{
 				state = State::Play;
 				globals::retry = false;
-				Initializers(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
 			}
 			if (state == State::Play)
 			{
-				Initializers(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
-				sound::PauseAll(globals::playingSound);
+				Initializers(tempTexture, block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
+				sound::PauseAll(globals::playingSound, globals::playingSongID);
 				sound::SetPlayingSound();
 			}
 
@@ -182,7 +183,7 @@ void MainLoop()
 
 			if (state == State::Menu)
 			{
-				sound::PauseAll(globals::playingSound);
+				sound::PauseAll(globals::playingSound, globals::playingSongID);
 				sound::SetSound(globals::menuSound, globals::menuSoundID);
 			}
 
@@ -198,7 +199,7 @@ void MainLoop()
 
 			if (state == State::Menu)
 			{
-				sound::PauseAll(globals::playingSound);
+				sound::PauseAll(globals::playingSound, globals::playingSongID);
 				sound::SetSound(globals::menuSound, globals::menuSoundID);
 			}
 
@@ -206,7 +207,7 @@ void MainLoop()
 
 		case State::HowToPlay:
 
-			howtoplay::Update(state, escapeControl, muteControl, shootControl, moveControl, stickyPU,extraPaddlePU,tripleDmgPU, exitText, powerUpText, cursor);
+			howtoplay::Update(state, escapeControl, muteControl, shootControl, moveControl, stickyPU, extraPaddlePU, tripleDmgPU, exitText, powerUpText, cursor);
 
 			break;
 		case State::EndScreen:
@@ -233,7 +234,7 @@ void MainLoop()
 		{
 		case State::Menu:
 
-			if (!globals::retry) 
+			if (!globals::retry)
 			{
 				menu::Draw(title, playText, creditsText, howToPlayText, exitText);
 			}
@@ -287,15 +288,16 @@ void MainLoop()
 
 		FinishDrawing();
 	}
-	game::Deinitialize();
+	game::Deinitialize(tempTexture);
 
 	EndWindow();
-
 }
 
-void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp,
+void Initializers(Texture& tempTexture, block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp,
 	text::Text& title, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax])
 {
+	globals::muteButtonIsPressed = false;
+	globals::muteButtonWasPressed = false;
 	globals::gamePaused = false;
 
 	paddle = paddle::Paddle();
@@ -609,15 +611,13 @@ void menu::Draw(text::Text title, text::Text playText, text::Text creditsText, t
 }
 
 
-void game::Initialization(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
+void game::Initialization(Texture& tempTexture, block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
 	text::Text& hp, text::Text& title, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax])
 {
 
 	InitializeWindow(globals::screenWidth, globals::screenHeight, "Breakout");
 
 	InitAudioDevice();
-
-	Texture tempTexture;
 
 	score.text = "Score: " + std::to_string(paddle.score);
 	hp.text = "Hp: ";
@@ -689,7 +689,6 @@ void game::Initialization(block::Block block[globals::maxRows][globals::maxCols]
 		unmute.posX = 95;
 		unmute.posY = 4;
 
-		UnloadTexture(tempTexture);
 	}
 	else
 	{
@@ -742,7 +741,8 @@ void game::Initialization(block::Block block[globals::maxRows][globals::maxCols]
 		globals::collisionWithPaddleID = slLoadWAV(globals::collisionWithPaddle.c_str());
 	}
 
-	Initializers(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
+	Initializers(tempTexture, block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
+
 }
 
 void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball,
@@ -830,7 +830,6 @@ void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::
 
 						paddle.powerUpType = powerup::PowerUpType::None;
 
-						ball.damage = 1;
 					}
 
 					if (block[row][col].durability <= 0)
@@ -841,6 +840,7 @@ void game::Update(block::Block block[globals::maxRows][globals::maxCols], ball::
 							paddle.powerUpType = block::PowerUpActivaded(extraPaddles, block[row][col]);
 						}
 					}
+					ball.damage = 1;
 				}
 			}
 		}
@@ -1007,7 +1007,7 @@ void sound::UnpauseSounds(Sound sound)
 	}
 }
 
-void sound::PauseAll(Sound sound)
+void sound::PauseAll(Sound sound, int id)
 {
 	if (globals::usingRaylib)
 	{
@@ -1383,7 +1383,7 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 	muteControl.posY = 28;
 
 	muteControl.fonstSize = 20;
-	
+
 	stickyPU.text = " Sticks the ball to your paddle. With up key lauch it directly at your objective";
 
 	stickyPU.posX = 52;
@@ -1391,7 +1391,7 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 
 	stickyPU.fonstSize = 20;
 
-	stickyPU.color = GREEN;	
+	stickyPU.color = GREEN;
 
 	extraPaddlePU.text = "Spawn 3 extra paddles. Each will catch the ball once and then destroy";
 
@@ -1410,7 +1410,7 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 	tripleDmgPU.fonstSize = 20;
 
 	tripleDmgPU.color = RED;
-	
+
 	powerUpText.text = "You can only have one of these power ups active at a time (first destroyed will active). \nIf you lose the ball while having a power up you will lose it, be careful!\n\n\nTo win, break al the blocks (or lose all the lives...)";
 
 	powerUpText.posX = 50;
@@ -1458,8 +1458,8 @@ void howtoplay::Draw(text::Text shootControl, text::Text escapeControl, text::Te
 	draw::DrawText(stickyPU);
 
 	draw::DrawSprite(globals::extraPaddleBrickTextureID, 7, 48, 10, 5, VIOLET);
-	draw::DrawText(extraPaddlePU);	
-	
+	draw::DrawText(extraPaddlePU);
+
 	draw::DrawSprite(globals::tripleDamageBrickTextureID, 7, 55, 10, 5, RED);
 	draw::DrawText(tripleDmgPU);
 
@@ -1468,7 +1468,7 @@ void howtoplay::Draw(text::Text shootControl, text::Text escapeControl, text::Te
 	draw::DrawText(exitText);
 }
 
-void game::Deinitialize()
+void game::Deinitialize(Texture& tempTexture)
 {
 	if (globals::usingRaylib)
 	{
@@ -1477,6 +1477,10 @@ void game::Deinitialize()
 		UnloadSound(globals::collisionEffectSound);
 		UnloadSound(globals::collisionWithPaddleSound);
 
+		UnloadTexture(tempTexture);
+
 		UnloadFont(globals::defaultText.font);
+
+		CloseAudioDevice();
 	}
 }

@@ -64,7 +64,7 @@ void draw::DrawText(text::Text text)
 {
 	if (globals::usingRaylib)
 	{
-		DrawTextEx(text.font, text.text.c_str(), { (text.posX * globals::screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2, (text.posY * globals::screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
+		DrawTextEx(text.font, text.text.c_str(), { (text.posX * globals::screenWidth / 100.0f) - (MeasureText(text.text.c_str(), text.fonstSize)) / 2.4f, (text.posY * globals::screenHeight / 100.0f) - (text.fonstSize / 2) }, text.fonstSize, text.spacing, text.color);
 	}
 	else
 	{

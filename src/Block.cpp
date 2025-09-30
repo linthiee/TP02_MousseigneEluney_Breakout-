@@ -30,7 +30,7 @@ powerup::PowerUpType block::PowerUpActivaded(paddle::Paddle extraPaddles[globals
 	switch (block.block.powerUpType)
 	{
 	case powerup::PowerUpType::ExtraPaddles:
-		
+
 		for (int i = 0; i < globals::extraPaddlesMax; i++)
 		{
 			extraPaddles[i].isActive = true;
@@ -67,12 +67,12 @@ void block::ApplyPowerUpToBlock(Block& block)
 {
 	switch (block.block.powerUpType)
 	{
-	case powerup::PowerUpType::ExtraPaddles: 
+	case powerup::PowerUpType::ExtraPaddles:
 
 		block.currentTextureID = globals::extraPaddleBrickTextureID;
 
 		break;
-	case powerup::PowerUpType::TripleDamage: 
+	case powerup::PowerUpType::TripleDamage:
 
 		block.currentTextureID = globals::tripleDamageBrickTextureID;
 
@@ -82,7 +82,10 @@ void block::ApplyPowerUpToBlock(Block& block)
 		block.currentTextureID = globals::shootBallBrickTextureID;
 
 		break;
-	case powerup::PowerUpType::None:    
+	case powerup::PowerUpType::None:
+
+		block.currentTextureID = globals::blockNormalTextureID;
+
 		break;
 	}
 }

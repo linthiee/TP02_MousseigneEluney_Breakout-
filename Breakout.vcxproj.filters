@@ -54,9 +54,6 @@
     <ClInclude Include="src\Text.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="PowerUps.h">
-      <Filter>Game Elements</Filter>
-    </ClInclude>
     <ClInclude Include="src\PowerUps.h">
       <Filter>Game Elements</Filter>
     </ClInclude>

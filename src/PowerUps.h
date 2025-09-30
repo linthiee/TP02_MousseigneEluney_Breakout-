@@ -14,7 +14,5 @@ namespace powerup
 		bool isActive = false;
 
 		int counterInCol = 0;
-
-		float timer = 10.0f;
 	};
 }

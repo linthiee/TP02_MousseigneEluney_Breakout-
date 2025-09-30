@@ -29,7 +29,6 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PowerUps.h" />
     <ClInclude Include="src\Ball.h" />
     <ClInclude Include="src\Block.h" />
     <ClInclude Include="src\Buttons.h" />

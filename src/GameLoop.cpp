@@ -45,6 +45,20 @@ namespace menu
 	void Draw(text::Text title, text::Text playText, text::Text creditsText, text::Text howToPlayText, text::Text exitText);
 }
 
+namespace credits
+{
+	void Update(State& state, text::Text& creditsText, text::Text& exitText, text::Text& profText, Cursor& cursor);
+	void Draw(text::Text creditsText, text::Text exitText, text::Text profText);
+}
+
+namespace howtoplay
+{
+	void Update(State& state, text::Text& escapeControl, text::Text& muteControl, text::Text& shootControl, text::Text& moveControl, text::Text& stickyPU,
+		text::Text& extraPaddlePU, text::Text& tripleDmgPU, text::Text& exitText, text::Text& powerUpText, Cursor& cursor);
+	void Draw(text::Text shootControl, text::Text escapeControl, text::Text muteControl, text::Text moveControl, text::Text stickyPU, text::Text extraPaddlePU,
+		text::Text tripleDmgPU, text::Text exitText, text::Text powerUpText);
+}
+
 namespace game
 {
 	void Initialization(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score,
@@ -53,6 +67,7 @@ namespace game
 		text::Text& score, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax], State& state, Cursor& cursor);
 	void Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 		text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax]);
+	void Deinitialize();
 }
 
 namespace sound
@@ -88,7 +103,7 @@ namespace lost
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = false;
+	globals::usingRaylib = true;
 
 	Cursor cursor;
 
@@ -98,6 +113,18 @@ void MainLoop()
 	text::Text creditsText;
 	text::Text howToPlayText;
 	text::Text exitText;
+
+	text::Text authorText;
+	text::Text profText;
+
+	text::Text shootControl;
+	text::Text moveControl;
+	text::Text escapeControl;
+	text::Text muteControl;
+	text::Text stickyPU;
+	text::Text extraPaddlePU;
+	text::Text tripleDmgPU;
+	text::Text powerUpText;
 
 	text::Text conditionText;
 	text::Text exit;
@@ -141,7 +168,6 @@ void MainLoop()
 				globals::retry = false;
 				Initializers(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
 			}
-
 			if (state == State::Play)
 			{
 				Initializers(block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
@@ -162,6 +188,9 @@ void MainLoop()
 
 			break;
 		case State::Credits:
+
+			credits::Update(state, creditsText, exitText, profText, cursor);
+
 			break;
 		case State::Pause:
 
@@ -176,6 +205,8 @@ void MainLoop()
 			break;
 
 		case State::HowToPlay:
+
+			howtoplay::Update(state, escapeControl, muteControl, shootControl, moveControl, stickyPU,extraPaddlePU,tripleDmgPU, exitText, powerUpText, cursor);
 
 			break;
 		case State::EndScreen:
@@ -202,7 +233,14 @@ void MainLoop()
 		{
 		case State::Menu:
 
-			menu::Draw(title, playText, creditsText, howToPlayText, exitText);
+			if (!globals::retry) 
+			{
+				menu::Draw(title, playText, creditsText, howToPlayText, exitText);
+			}
+			else
+			{
+				game::Draw(block, ball, paddle, score, hp, mute, unmute, extraPaddles);
+			}
 
 			break;
 		case State::Play:
@@ -211,6 +249,9 @@ void MainLoop()
 
 			break;
 		case State::Credits:
+
+			credits::Draw(creditsText, exitText, profText);
+
 			break;
 		case State::Pause:
 
@@ -219,6 +260,8 @@ void MainLoop()
 			break;
 
 		case State::HowToPlay:
+
+			howtoplay::Draw(shootControl, escapeControl, muteControl, moveControl, stickyPU, extraPaddlePU, tripleDmgPU, exitText, powerUpText);
 
 			break;
 		case State::EndScreen:
@@ -235,7 +278,7 @@ void MainLoop()
 			break;
 		case State::Exit:
 
-			
+
 
 			break;
 		default:
@@ -244,7 +287,8 @@ void MainLoop()
 
 		FinishDrawing();
 	}
-	//DeInitialize (ACORDARSE DE DEINICIALIZAR LAS TEXTURAS!!!!!!!!1111)
+	game::Deinitialize();
+
 	EndWindow();
 
 }
@@ -281,6 +325,14 @@ void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::
 
 	for (int col = 0; col < globals::maxCols; col++)
 	{
+		for (int row = 0; row < globals::maxRows; row++)
+		{
+			block[row][col].block.powerUpType = powerup::PowerUpType::None;
+		}
+	}
+
+	for (int col = 0; col < globals::maxCols; col++)
+	{
 		int counterInCol = 0;
 		for (int row = 0; row < globals::maxRows; row++)
 		{
@@ -297,19 +349,20 @@ void Initializers(block::Block block[globals::maxRows][globals::maxCols], ball::
 
 			block[row][col].score = scores[row];
 
-			if (block[row][col].block.powerUpType != powerup::PowerUpType::None)
-			{
-				counterInCol++;
-			}
-
-			block[row][col].currentTextureID = globals::blockNormalTextureID;
-
 			if (counterInCol < globals::maxPowerUpsPerCol)
 			{
 				block[row][col].block.powerUpType = block::DecidePowerUpType(block[row][col].block.counterInCol);
 				block::ApplyPowerUpToBlock(block[row][col]);
 			}
+			else
+			{
+				block[row][col].currentTextureID = globals::blockNormalTextureID;
+			}
 
+			if (block[row][col].block.powerUpType != powerup::PowerUpType::None)
+			{
+				counterInCol++;
+			}
 		}
 	}
 }
@@ -635,6 +688,8 @@ void game::Initialization(block::Block block[globals::maxRows][globals::maxCols]
 
 		unmute.posX = 95;
 		unmute.posY = 4;
+
+		UnloadTexture(tempTexture);
 	}
 	else
 	{
@@ -1000,7 +1055,7 @@ void pause::Update(State& state, Cursor& cursor, text::Text& pauseText, text::Te
 
 	retryText = globals::defaultText;
 
-	retryText.text = "retry";
+	retryText.text = "reset";
 
 	retryText.posX = 60;
 	retryText.posY = 65;
@@ -1223,8 +1278,8 @@ void lost::Update(State& state, Cursor& cursor, text::Text& conditionText, text:
 	{
 		exit.color = GRAY;
 	}
-
 }
+
 void lost::Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle,
 	text::Text score, text::Text hp, buttons::Button mute, buttons::Button unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax], text::Text conditionText, text::Text returnText, text::Text retryText, text::Text& exit)
 {
@@ -1235,4 +1290,193 @@ void lost::Draw(block::Block block[globals::maxRows][globals::maxCols], ball::Ba
 	draw::DrawText(returnText);
 	draw::DrawText(retryText);
 	draw::DrawText(exit);
+}
+
+void credits::Update(State& state, text::Text& creditsText, text::Text& exitText, text::Text& profText, Cursor& cursor)
+{
+	UpdateMousePosition(cursor);
+
+	creditsText = globals::defaultText;
+
+	creditsText.text = "Made by Eluney Jazmin Mousseigne";
+
+	creditsText.posX = 50;
+	creditsText.posY = 20;
+
+	creditsText.fonstSize = 40;
+
+	profText = globals::defaultText;
+
+	profText.text = "Special thanks to Sergio Baretto & Stefano Cvitanich";
+
+	profText.posX = 50;
+	profText.posY = 30;
+
+	profText.fonstSize = 30;
+
+	exitText = globals::defaultText;
+
+	exitText.text = "Exit";
+
+	exitText.posX = 5;
+	exitText.posY = 95;
+
+	exitText.fonstSize = 30;
+
+	if (utils::CheckCollisions(exitText.posX, exitText.posY, 7, 5, cursor.radius, cursor.positionX, cursor.positionY))
+	{
+		exitText.color = WHITE;
+
+		if (utils::IsMouseButtonPressed())
+		{
+			state = State::Menu;
+		}
+	}
+	else
+	{
+		exitText.color = GRAY;
+	}
+}
+
+void credits::Draw(text::Text creditsText, text::Text exitText, text::Text profText)
+{
+	DrawBackground();
+
+	draw::DrawText(creditsText);
+	draw::DrawText(exitText);
+	draw::DrawText(profText);
+}
+
+void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& muteControl, text::Text& shootControl, text::Text& moveControl, text::Text& stickyPU,
+	text::Text& extraPaddlePU, text::Text& tripleDmgPU, text::Text& exitText, text::Text& powerUpText, Cursor& cursor)
+{
+	UpdateMousePosition(cursor);
+
+	shootControl = globals::defaultText;
+
+	shootControl.text = " ^         <-  Shoots the ball in a random direction when the game starts";
+
+	shootControl.posX = 60;
+	shootControl.posY = 10;
+
+	shootControl.fonstSize = 20;
+
+	moveControl = globals::defaultText;
+
+	moveControl.text = " <    >            <-  Move left and right";
+
+	moveControl.posX = 40;
+	moveControl.posY = 15;
+
+	moveControl.fonstSize = 20;
+
+	escapeControl.text = "ESC            <-  Pause/Unpause game";
+
+	escapeControl.posX = 42;
+	escapeControl.posY = 22;
+
+	escapeControl.fonstSize = 20;
+
+	muteControl.text = "M            <-  Mute/Unmute background music";
+
+	muteControl.posX = 47;
+	muteControl.posY = 28;
+
+	muteControl.fonstSize = 20;
+	
+	stickyPU.text = " Sticks the ball to your paddle. With up key lauch it directly at your objective";
+
+	stickyPU.posX = 52;
+	stickyPU.posY = 42;
+
+	stickyPU.fonstSize = 20;
+
+	stickyPU.color = GREEN;	
+
+	extraPaddlePU.text = "Spawn 3 extra paddles. Each will catch the ball once and then destroy";
+
+	extraPaddlePU.posX = 50;
+	extraPaddlePU.posY = 49;
+
+	extraPaddlePU.fonstSize = 20;
+
+	extraPaddlePU.color = VIOLET;
+
+	tripleDmgPU.text = "The ball will insta-destroy the block it hits and damage the adjacent ones (up to 4)";
+
+	tripleDmgPU.posX = 56;
+	tripleDmgPU.posY = 57;
+
+	tripleDmgPU.fonstSize = 20;
+
+	tripleDmgPU.color = RED;
+	
+	powerUpText.text = "You can only have one of these power ups active at a time (first destroyed will active). \nIf you lose the ball while having a power up you will lose it, be careful!\n\n\nTo win, break al the blocks (or lose all the lives...)";
+
+	powerUpText.posX = 50;
+	powerUpText.posY = 70;
+
+	powerUpText.fonstSize = 20;
+
+	powerUpText.color = WHITE;
+
+	exitText = globals::defaultText;
+
+	exitText.text = "Exit";
+
+	exitText.posX = 5;
+	exitText.posY = 95;
+
+	exitText.fonstSize = 20;
+
+	if (utils::CheckCollisions(exitText.posX, exitText.posY, 7, 5, cursor.radius, cursor.positionX, cursor.positionY))
+	{
+		exitText.color = WHITE;
+
+		if (utils::IsMouseButtonPressed())
+		{
+			state = State::Menu;
+		}
+	}
+	else
+	{
+		exitText.color = GRAY;
+	}
+}
+
+void howtoplay::Draw(text::Text shootControl, text::Text escapeControl, text::Text muteControl, text::Text moveControl, text::Text stickyPU, text::Text extraPaddlePU,
+	text::Text tripleDmgPU, text::Text exitText, text::Text powerUpText)
+{
+	DrawBackground();
+
+	draw::DrawText(shootControl);
+	draw::DrawText(moveControl);
+	draw::DrawText(escapeControl);
+	draw::DrawText(muteControl);
+
+	draw::DrawSprite(globals::shootBallBrickTextureID, 7, 40, 10, 5, GREEN);
+	draw::DrawText(stickyPU);
+
+	draw::DrawSprite(globals::extraPaddleBrickTextureID, 7, 48, 10, 5, VIOLET);
+	draw::DrawText(extraPaddlePU);	
+	
+	draw::DrawSprite(globals::tripleDamageBrickTextureID, 7, 55, 10, 5, RED);
+	draw::DrawText(tripleDmgPU);
+
+	draw::DrawText(powerUpText);
+
+	draw::DrawText(exitText);
+}
+
+void game::Deinitialize()
+{
+	if (globals::usingRaylib)
+	{
+		UnloadSound(globals::menuSound);
+		UnloadSound(globals::playingSound);
+		UnloadSound(globals::collisionEffectSound);
+		UnloadSound(globals::collisionWithPaddleSound);
+
+		UnloadFont(globals::defaultText.font);
+	}
 }

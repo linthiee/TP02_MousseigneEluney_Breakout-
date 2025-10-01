@@ -65,6 +65,8 @@ namespace globals
 	bool muteButtonIsPressed = false;
 	bool muteButtonWasPressed = false;
 
+	bool isSongPlaying = false;
+
 	bool usingRaylib = false;
 
 	bool retry = false;

@@ -171,7 +171,7 @@ void MainLoop()
 			}
 			if (state == State::Play)
 			{
-				Initializers(tempTexture, block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);
+				Initializers(tempTexture, block, ball, paddle, score, hp, title, mute, unmute, extraPaddles);	
 				sound::PauseAll(globals::playingSound, globals::playingSongID);
 				sound::SetPlayingSound();
 			}
@@ -296,8 +296,7 @@ void MainLoop()
 void Initializers(Texture& tempTexture, block::Block block[globals::maxRows][globals::maxCols], ball::Ball& ball, paddle::Paddle& paddle, text::Text& score, text::Text& hp,
 	text::Text& title, buttons::Button& mute, buttons::Button& unmute, paddle::Paddle extraPaddles[globals::extraPaddlesMax])
 {
-	globals::muteButtonIsPressed = false;
-	globals::muteButtonWasPressed = false;
+
 	globals::gamePaused = false;
 
 	paddle = paddle::Paddle();
@@ -1370,6 +1369,8 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 
 	moveControl.fonstSize = 20;
 
+	escapeControl = globals::defaultText;
+
 	escapeControl.text = "ESC            <-  Pause/Unpause game";
 
 	escapeControl.posX = 42;
@@ -1377,12 +1378,16 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 
 	escapeControl.fonstSize = 20;
 
+	muteControl = globals::defaultText;
+
 	muteControl.text = "M            <-  Mute/Unmute background music";
 
 	muteControl.posX = 47;
 	muteControl.posY = 28;
 
 	muteControl.fonstSize = 20;
+
+	stickyPU = globals::defaultText;
 
 	stickyPU.text = " Sticks the ball to your paddle. With up key lauch it directly at your objective";
 
@@ -1393,6 +1398,8 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 
 	stickyPU.color = GREEN;
 
+	extraPaddlePU = globals::defaultText;
+
 	extraPaddlePU.text = "Spawn 3 extra paddles. Each will catch the ball once and then destroy";
 
 	extraPaddlePU.posX = 50;
@@ -1402,6 +1409,8 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 
 	extraPaddlePU.color = VIOLET;
 
+	tripleDmgPU = globals::defaultText;
+
 	tripleDmgPU.text = "The ball will insta-destroy the block it hits and damage the adjacent ones (up to 4)";
 
 	tripleDmgPU.posX = 56;
@@ -1410,6 +1419,8 @@ void howtoplay::Update(State& state, text::Text& escapeControl, text::Text& mute
 	tripleDmgPU.fonstSize = 20;
 
 	tripleDmgPU.color = RED;
+
+	powerUpText = globals::defaultText;
 
 	powerUpText.text = "You can only have one of these power ups active at a time (first destroyed will active). \nIf you lose the ball while having a power up you will lose it, be careful!\n\n\nTo win, break al the blocks (or lose all the lives...)";
 

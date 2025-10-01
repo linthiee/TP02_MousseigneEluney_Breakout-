@@ -86,6 +86,8 @@ namespace globals
 	extern bool muteButtonIsPressed;
 	extern bool muteButtonWasPressed;
 
+	extern bool isSongPlaying;
+
 	extern int screenWidth;
 	extern int screenHeight;
 

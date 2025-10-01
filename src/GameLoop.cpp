@@ -103,7 +103,7 @@ namespace lost
 void MainLoop()
 {
 	srand(time(nullptr));
-	globals::usingRaylib = true;
+	globals::usingRaylib = false;
 
 	Cursor cursor;
 
